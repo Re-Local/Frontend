@@ -1,0 +1,103 @@
+/* Community.css */
+
+.community-container {
+    padding: 20px;
+    background-color: #fcfcfc;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .community-header h2 {
+    font-size: 1.8rem;
+    color: #333;
+  }
+  
+  .community-tabs {
+    margin-top: 10px;
+    display: flex;
+    gap: 12px;
+  }
+  
+  .tab {
+    padding: 8px 14px;
+    background-color: #eee;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .tab.active {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .community-main {
+    display: flex;
+    margin-top: 30px;
+    gap: 24px;
+  }
+  
+  /* 게시글 카드 영역 */
+  .post-section {
+    flex: 3;
+  }
+  
+  .post-card {
+    background: #fff;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+  }
+  
+  .post-header {
+    display: flex;
+    gap: 8px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .post-image {
+    background-color: #ddd;
+    height: 180px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .post-tags span {
+    margin-right: 8px;
+    font-size: 0.85rem;
+    color: #666;
+  }
+  
+  /* 사이드바 */
+  .community-sidebar {
+    flex: 1;
+  }
+  
+  .community-sidebar h4 {
+    margin-bottom: 8px;
+    color: #444;
+  }
+  
+  .upcoming-events,
+  .community-lists,
+  .popular-tags {
+    background: #f5f5f5;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .tags span {
+    display: inline-block;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    background: #e0e0e0;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+  }
+  
