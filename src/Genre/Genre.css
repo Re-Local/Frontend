@@ -1,0 +1,170 @@
+/* 레이아웃 전체 */
+.genre-container {
+    padding: 40px;
+    background-color: #f9f9f9;
+    font-family: 'Pretendard', sans-serif;
+  }
+  
+  /* 헤더 */
+  .genre-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+  
+  .genre-header h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  /* 검색 */
+  .genre-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .genre-search input {
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 200px;
+  }
+  
+  .genre-search button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  /* 포스터 카드 */
+  .poster-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  
+  .poster-card {
+    width: 200px; /* 또는 220px, 240px 등 원하는 크기로 */
+    min-width: 200px;
+    height: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s ease;
+  }
+  
+  .poster-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  
+  
+  .poster-img {
+    width: 100%;
+    height: 280px;         /* 세로로 길게 */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  
+  
+  .poster-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+  
+  .poster-info {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 4px;
+  }
+  .poster-buttons button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 30px;
+    background-color: #333;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  
+  .poster-buttons button:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+  }
+  
+  
+  /* 버튼 그룹 */
+  .poster-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  
+  .filter-section {
+    display: flex;
+    gap: 12px;
+    margin: 24px 0;
+    flex-wrap: wrap;
+  }
+  
+  .poster-buttons button,
+  .filter-section button {
+    background-color: #f1f1f1;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .poster-buttons button:hover,
+  .filter-section button:hover {
+    background-color: #333;
+    color: #fff;
+  }
+   /* 슬라이더 담당 */
+   .poster-section.carousel {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+  }
+  
+  
+  .poster-section.carousel .poster-card {
+    flex: 0 0 30%;
+    margin-right: 20px;
+  }
+  
+  /* 그리드 전체 표시용 */
+  .poster-section.grid-all {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+  
+  /* 버튼 디자인 통일 */
+  .poster-buttons button {
+    /* 기존 스타일에 transition, primary 색 템플릿 적용 */
+  }
+  
+  /* match-card 스타일 개선 */
+  .match-card.detailed {
+    display: flex;
+    /* 여백, 그림, 버튼 밸런스 등 조정 */
+  }
+  
