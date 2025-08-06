@@ -1,26 +1,29 @@
-.topnav {
-    width: 100%;
-    height: 60px;
-    background-color: #fff;
-    border-bottom: 1px solid #eee;
-    padding: 0 20px;
+.search-bar {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: white;
+    padding: 8px 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    gap: 6px;
+    z-index: 10;
   }
   
-  .logo {
-    font-size: 1.4rem;
-    font-weight: bold;
+  .search-bar input {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 6px 10px;
+    width: 180px;
   }
   
-  .lang-btn {
-    font-size: 20px;
-    background: none;
+  .search-bar button {
+    background: #42A5F5;
     border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
     cursor: pointer;
   }
   
