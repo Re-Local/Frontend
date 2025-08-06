@@ -1,103 +1,247 @@
-/* Community.css */
+:root {
+  --primary: #2196f3;             /* 진한 skyblue */
+  --primary-light: #e3f2fd;
+  --bg-light: #f9fcfe;
+  --text-dark: #333;
+  --text-soft: #777;
+  --shadow-soft: 0 2px 8px rgba(33, 150, 243, 0.1);
+}
 
-.community-container {
-    padding: 20px;
-    background-color: #fcfcfc;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  .community-header h2 {
-    font-size: 1.8rem;
-    color: #333;
-  }
-  
-  .community-tabs {
-    margin-top: 10px;
-    display: flex;
-    gap: 12px;
-  }
-  
-  .tab {
-    padding: 8px 14px;
-    background-color: #eee;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-  
-  .tab.active {
-    background-color: #333;
-    color: #fff;
-  }
-  
-  .community-main {
-    display: flex;
-    margin-top: 30px;
-    gap: 24px;
-  }
-  
-  /* 게시글 카드 영역 */
-  .post-section {
-    flex: 3;
-  }
-  
-  .post-card {
-    background: #fff;
-    padding: 16px;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    margin-bottom: 20px;
-  }
-  
-  .post-header {
-    display: flex;
-    gap: 8px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .post-image {
-    background-color: #ddd;
-    height: 180px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .post-tags span {
-    margin-right: 8px;
-    font-size: 0.85rem;
-    color: #666;
-  }
-  
-  /* 사이드바 */
-  .community-sidebar {
-    flex: 1;
-  }
-  
-  .community-sidebar h4 {
-    margin-bottom: 8px;
-    color: #444;
-  }
-  
-  .upcoming-events,
-  .community-lists,
-  .popular-tags {
-    background: #f5f5f5;
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-  }
-  
-  .tags span {
-    display: inline-block;
-    margin-right: 6px;
-    margin-bottom: 6px;
-    background: #e0e0e0;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-  }
-  
+body {
+  background: var(--bg-light);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Topnav 공통 */
+.topnav {
+  background: white;
+  box-shadow: var(--shadow-soft);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: var(--primary);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.topnav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.search-icon,
+.lang-btn,
+.menu-toggle {
+  font-size: 18px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--text-dark);
+}
+
+/* 커뮤니티 페이지 레이아웃 */
+.community-page {
+  max-width: 1200px;
+  margin: auto;
+  padding: 30px 20px;
+}
+
+/* 타이틀 */
+.community-title {
+  color: var(--primary);
+  font-size: 1.6rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 필터 */
+.community-filters {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.tab {
+  background: white;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.tab:hover {
+  background: var(--primary-light);
+}
+
+.tab.active {
+  background: var(--primary);
+  color: white;
+}
+
+/* 업로드 박스 */
+.upload-box {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 30px;
+}
+
+.upload-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.upload-box textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  resize: none;
+  height: 70px;
+}
+
+.upload-options {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  justify-content: flex-end;
+}
+
+.upload-options button,
+.submit-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* 메인 */
+.community-main {
+  display: flex;
+  gap: 24px;
+}
+
+/* 왼쪽 피드 */
+.feed-left {
+  flex: 2;
+}
+
+/* 카드 */
+.post-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.post-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.user-info p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.rating {
+  margin-left: auto;
+  color: var(--primary);
+}
+
+.post-photo {
+  background-color: #eee;
+  height: 200px;
+  border-radius: 12px;
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+}
+
+.post-tags button {
+  background: var(--primary-light);
+  border: none;
+  padding: 4px 10px;
+  border-radius: 14px;
+  font-size: 12px;
+  margin-right: 8px;
+  color: var(--primary);
+}
+
+.post-actions {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #666;
+}
+
+/* 오른쪽 사이드바 */
+.feed-right {
+  flex: 1;
+}
+
+.upcoming-events,
+.community-lists {
+  background: white;
+  padding: 16px;
+  border-radius: 14px;
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 20px;
+}
+
+.upcoming-events h4,
+.community-lists h4 {
+  font-size: 1.1rem;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+}
+
+.upcoming-events ul,
+.community-lists ul {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.upcoming-events li,
+.community-lists li {
+  margin-bottom: 6px;
+  list-style: square;
+  color: var(--text-soft);
+}
+
+.view-all {
+  margin-top: 10px;
+  background-color: var(--primary);
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 13px;
+}
