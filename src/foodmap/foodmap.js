@@ -1,18 +1,27 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-// @ts-ignore
+import Topnav from '../components/Topnav';
+import './Foodmap.css';
 import { feature } from 'topojson-client';
 
 const Foodmap = () => {
   const navigate = useNavigate();
   const mapRef = useRef(null);
 
+  // 사용자 UI용 데이터
+  const popularAreas = ['Gangnam', 'Hongdae', 'Myeongdong', 'Insadong'];
+  const foundExperiences = [
+    { id: 1, name: 'FI Formular', location: 'Seoul / Itaewon', rating: 4.8 },
+    { id: 2, name: 'Art Market', location: 'Seong‑su', rating: 4.5 },
+    { id: 3, name: 'Jazz Night', location: 'Itaewon', rating: 4.6 },
+    { id: 4, name: 'Modern Art Tour', location: 'Seoul City Museum', rating: 4.7 },
+  ];
+
   useEffect(() => {
     const loadScript = () =>
       new Promise((resolve, reject) => {
         const existing = document.querySelector('script[src^="https://dapi.kakao.com"]');
         if (existing) return resolve();
-
         const script = document.createElement('script');
         script.src = 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=039270177862ec2c7c46e905b6d3352f&autoload=false';
         script.async = true;
@@ -39,7 +48,12 @@ const Foodmap = () => {
         const customOverlay = new window.kakao.maps.CustomOverlay({});
         const infowindow = new window.kakao.maps.InfoWindow({ removable: true });
 
-        const centers = [/* 생략, 위 코드에서 그대로 붙여 넣기 가능 */];
+        const centers = [
+          { name: 'Gangnam', lat: 37.4979, lng: 127.0276 },
+          { name: 'Hongdae', lat: 37.5572, lng: 126.9244 },
+          { name: 'Myeongdong', lat: 37.5636, lng: 126.982 },
+          { name: 'Insadong', lat: 37.5740, lng: 126.9850 },
+        ];
 
         let regionPolygons = [];
         let dongPolygons = [];
@@ -63,7 +77,8 @@ const Foodmap = () => {
             };
 
             if (geometry.type === 'Polygon') drawPolygon(geometry.coordinates[0]);
-            else if (geometry.type === 'MultiPolygon') geometry.coordinates.forEach((multi) => drawPolygon(multi[0]));
+            else if (geometry.type === 'MultiPolygon')
+              geometry.coordinates.forEach((multi) => drawPolygon(multi[0]));
           });
         };
 
@@ -73,24 +88,21 @@ const Foodmap = () => {
             customOverlay.setPosition(e.latLng);
             customOverlay.setMap(map);
           });
-
           window.kakao.maps.event.addListener(polygon, 'mouseout', () => {
             polygon.setOptions({ fillColor: '#CACACB' });
             customOverlay.setMap(null);
           });
-
           window.kakao.maps.event.addListener(polygon, 'click', (e) => {
             const content = document.createElement('div');
             content.innerHTML = `
               <div style="padding:8px; font-size:13px;">
-                <strong>${dong.properties.DONG_KOR_NM}</strong><br />
+                <strong>${dong.properties.DONG_KOR_NM}</strong><br/>
                 이 지역 맛집을 보시겠어요?<br/><br/>
                 <button id="btn-goto" style="background:#B36B00;color:white;padding:4px 8px;border-radius:5px;">맛집 보기</button>
               </div>`;
             infowindow.setContent(content);
             infowindow.setPosition(e.latLng);
             infowindow.setMap(map);
-
             content.querySelector('#btn-goto')?.addEventListener('click', () => {
               navigate('/restaurant');
             });
@@ -109,7 +121,6 @@ const Foodmap = () => {
             fillColor: '#ffffff',
             fillOpacity: 0.6,
           });
-
           regionPolygons.push(polygon);
 
           window.kakao.maps.event.addListener(polygon, 'mouseover', (e) => {
@@ -117,21 +128,20 @@ const Foodmap = () => {
             customOverlay.setPosition(e.latLng);
             customOverlay.setMap(map);
           });
-
           window.kakao.maps.event.addListener(polygon, 'mouseout', () => {
             polygon.setOptions({ fillColor: '#ffffff' });
             customOverlay.setMap(null);
           });
-
           window.kakao.maps.event.addListener(polygon, 'click', () => {
             regionPolygons.forEach((p) => p.setMap(null));
             regionPolygons = [];
-
             const center = centers.find((c) => c.name === name);
-            if (center) map.setCenter(new window.kakao.maps.LatLng(center.lat, center.lng));
+            if (center)
+              map.setCenter(new window.kakao.maps.LatLng(center.lat, center.lng));
             map.setLevel(7);
-
-            const dongs = dongData.features.filter((f) => f.properties.SIG_KOR_NM === name);
+            const dongs = dongData.features.filter(
+              (f) => f.properties.SIG_KOR_NM === name,
+            );
             displayDongAreas(dongs);
             addGoBackButton();
           });
@@ -151,14 +161,12 @@ const Foodmap = () => {
           dongPolygons.forEach((p) => p.setMap(null));
           dongPolygons = [];
           infowindow.close();
-
           map.setLevel(9);
           map.setCenter(new window.kakao.maps.LatLng(37.5665, 126.9780));
           if (goBackButton) {
             goBackButton.remove();
             goBackButton = null;
           }
-
           seoulMap.features.forEach((f) => {
             displayArea(f.geometry.coordinates[0], f.properties.SIG_KOR_NM);
           });
@@ -176,26 +184,61 @@ const Foodmap = () => {
   }, [navigate]);
 
   return (
-    <div className="map-wrapper" style={{ padding: '2rem' }}>
-      <h1 style={{ textAlign: 'center', marginBottom: '0.5rem' }}>우리 지역 근처 맛집 찾기</h1>
-      <p style={{ textAlign: 'center', color: '#666', marginBottom: '1rem' }}>
-        서울시에서 원하는 구역을 선택하세요.
-      </p>
-      <div
-        className="map-container"
-        style={{
-          width: '100%',
-          maxWidth: '1000px',
-          height: '600px',
-          margin: '0 auto',
-          borderRadius: '16px',
-          overflow: 'hidden',
-          border: '1px solid #eee',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-        }}
-      >
-        <div ref={mapRef} style={{ width: '100%', height: '100%' }} />
+    <div className="map-page">
+      <Topnav />
+
+      <div className="map-header-text">
+        <h2>우리 지역 근처 맛집 찾기</h2>
+        <p>서울시에서 원하는 구역을 선택하세요.</p>
       </div>
+
+      <div className="map-content">
+        <aside className="map-filter">
+          <h4>Search & Filter</h4>
+          <input type="text" placeholder="Search experiences or location..." />
+          <select>
+            <option>All Categories</option>
+            <option>Musical</option>
+            <option>Play</option>
+            <option>Exhibition</option>
+          </select>
+          <select>
+            <option>All Locations</option>
+            <option>Seoul</option>
+            <option>Incheon</option>
+          </select>
+          <button className="apply-btn">Apply Filters</button>
+
+          <div className="popular-areas">
+            <h4>Popular Areas</h4>
+            <ul>
+              {popularAreas.map((a, i) => (
+                <li key={i}>📍 {a}</li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+
+        <div className="map-container-wrapper">
+          <div ref={mapRef} className="map-container" />
+        </div>
+      </div>
+
+      <section className="found-experiences">
+        <h4>Found Experiences</h4>
+        <div className="experience-list">
+          {foundExperiences.map((e) => (
+            <div key={e.id} className="exp-card">
+              <div className="exp-info">
+                <h5>{e.name}</h5>
+                <p>{e.location}</p>
+              </div>
+              <span className="exp-rating">★ {e.rating}</span>
+              <button className="view-btn">View Details</button>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };
