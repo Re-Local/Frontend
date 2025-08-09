@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Topnav from "../components/Topnav";         // 상단바(유지)
-import posters from "../Genre/postersData";        // 캐러셀용 포스터 데이터
+import posters from "./postersData.js";        // 캐러셀용 포스터 데이터
 import SearchModal from "./SearchModal";           // 검색 모달
 import "./Main.css";
 
@@ -25,33 +25,31 @@ function Hero() {
 
   // 자동 슬라이드
   useEffect(() => {
+    if (total <= 1) return; // 카드가 1장 이하일 때는 타이머 불필요
     const timer = setInterval(() => {
       setIdx((prev) => (prev + 1) % total);
     }, 5000);
     return () => clearInterval(timer);
   }, [total]);
 
-  const visible = [
-    posters[idx % total],
-    posters[(idx + 1) % total],
-    posters[(idx + 2) % total],
-  ].filter(Boolean); // 데이터 없을 때 안전장치
+  const current = posters[idx % total]; // 현재 카드만 사용
+  if (!current) return null;            // 데이터 없을 때 안전장치
 
   return (
     <header className="hero">
       <h1>추천 만한 메인 이벤트</h1>
       <p>Live Local. Explore Korea.</p>
 
-      <div className="poster-carousel">
-        {visible.map((p) => (
-          <div key={p.id} className="poster-card">
-            <img src={p.image} alt={p.title} className="poster-img" />
-            <div className="poster-title">{p.title}</div>
-            <div className="poster-info">{p.category}</div>
-          </div>
-        ))}
+      {/* 한 장만 표시 */}
+      <div className="poster-carousel" style={{ justifyContent: "center" }}>
+        <div className="poster-card" style={{ maxWidth: 360, width: "100%" }}>
+          <img src={current.image} alt={current.title} className="poster-img" />
+          <div className="poster-title">{current.title}</div>
+          <div className="poster-info">{current.category}</div>
+        </div>
       </div>
 
+      {/* 좌우 버튼 + 인디케이터 유지 */}
       <div className="slide-indicator">
         <button onClick={() => setIdx((i) => (i - 1 + total) % total)}>‹</button>
         <span>{(idx % total) + 1}/{total}</span>
@@ -60,6 +58,7 @@ function Hero() {
     </header>
   );
 }
+
 
 /* ---------------- 카테고리 그리드 ---------------- */
 function CategoryGrid({ onPick }) {
