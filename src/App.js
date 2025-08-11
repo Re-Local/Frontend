@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Foodmap from "./foodmap/Foodmap"
+import Foodmap from "./foodmap/foodmap";
 import Genre from './Genre/Genre';
 import Community from './Community/Community';
 import Recommended from './Genre/Recommended';
