@@ -1,0 +1,167 @@
+/* 페이지 기본 */
+.main-page {
+  background-color: #f8fafd;
+  min-height: 100vh;
+}
+
+.main-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.spacer {
+  height: 60px; /* Topnav 높이만큼 공간 */
+}
+
+/* Hero 영역 */
+.hero {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.hero h1 {
+  font-size: 1.8rem;
+  margin-bottom: 6px;
+}
+
+.hero p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* 캐러셀 */
+.poster-carousel {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.poster-card {
+  flex: 0 0 30%;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 10px;
+  transition: transform 0.2s ease;
+}
+
+.poster-card:hover {
+  transform: translateY(-4px);
+}
+
+.poster-img {
+  width: 700px;
+  height: 400px; 
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+
+.poster-title {
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.poster-info {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.slide-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.slide-indicator button {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.slide-indicator span {
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* 카테고리 그리드 */
+.section {
+  margin-bottom: 30px;
+}
+
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.cat {
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.cat-box {
+  background-color: #e0e7ff;
+  height: 60px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
+
+.cat-label {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* 달력 */
+.cal {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.cal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cal-head button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.cal-cell {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cal-dow {
+  font-weight: bold;
+}
+
+.cal-day {
+  background-color: #e0e7ff;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

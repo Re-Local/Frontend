@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Foodmap from "./foodmap/Foodmap";
+import Foodmap from "./foodmap/foodmap";
 import Genre from './Genre/Genre';
 import Community from './Community/Community';
 import Recommended from './Genre/Recommended';
 import AllPosters from './Genre/AllPosters';
-import Main from './Main';
+import Main from './MainPage/Main';
 
 
 
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     element: <Community />,
   },
   {
-    path: "/genre/recommend",
+    path: "/genre/recommended",
     element: <Recommended />,
   },
   {
