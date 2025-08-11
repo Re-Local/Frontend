@@ -1,8 +1,10 @@
+
 import React, { useState } from 'react';
 import './Signup.css';
 
 const COUNTRIES = ['Korea','USA','Japan','China','Germany','France','Canada','UK','Spain','Australia'];
 const LANGUAGES = ['Korean','English','Japanese','Chinese','German','French','Spanish','Portuguese','Russian','Arabic'];
+const TAGS = ['스포츠', '음악', '여행', '요리', '독서', '영화', '게임', '사진', '운동', '학습'];
 
 export default function Signup() {
   // 직접 입력 필드
@@ -11,28 +13,29 @@ export default function Signup() {
   const [userid, setUserid] = useState('');
   const [password, setPassword] = useState('');
   const [age, setAge] = useState('');
-    const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState([]);
 
   // 토글 선택 필드
   const [country, setCountry] = useState('Korea');
   const [language, setLanguage] = useState('Korean');
-const toggle = (list, setter, value) =>
+
+  const toggle = (list, setter, value) =>
     setter(prev => prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value]);
-  // 문자열 입력
-const TAGS = ['K-pop','Food','Museum','Nightlife','Nature','History','Market','Cafe','Festival'];
 
-  const isInt = (v) => /^\d+$/.test(String(v));
-  const isValidGender = gender === '0' || gender === '1';
+  const isInt = (value) => {
+    const num = parseInt(value, 10);
+    return !isNaN(num) && num.toString() === value;
+  };
 
-  const canSubmit =
+  const canSubmit = 
     name.trim() &&
     userid.trim() &&
     password &&
-    isValidGender &&
+    (gender === '0' || gender === '1') &&
     isInt(age) &&
     country &&
     language &&
-    tags.count > 0
+    tags.length > 0;
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -46,7 +49,7 @@ const TAGS = ['K-pop','Food','Museum','Nightlife','Nature','History','Market','C
       country,
       language,
       age: parseInt(age, 10),
-      
+      tags
     };
 
     console.log('signup payload:', payload);
@@ -168,7 +171,6 @@ const TAGS = ['K-pop','Food','Museum','Nightlife','Nature','History','Market','C
             ))}
           </div>
         </div>
-
 
         <button className="submit" type="submit" disabled={!canSubmit}>
           회원가입
