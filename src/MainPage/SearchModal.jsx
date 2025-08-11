@@ -3,21 +3,21 @@ import "./SearchModal.css";
 
 const SearchModal = ({ onClose }) => {
   const trendingKeywords = [
-    "¼­¿ï ºÒ²ÉÃàÁ¦",
-    "ºÎ»ê ÇØ¿î´ë ¾ß½ÃÀå",
-    "ÀüÁÖ ÇÑ¿Á¸¶À» Ã¼Çè",
-    "Á¦ÁÖ °¨±Ö ¼öÈ®",
-    "°­¸ª Ä¿ÇÇ ÃàÁ¦"
+    "ì„œìš¸ í•«í”Œë ˆì´ìŠ¤",
+  "ë¶€ì‚° í•´ìš´ëŒ€ ì¶•ì œ",
+  "ì „ì‹œíšŒ ì¼ì • í™•ì¸",
+  "ë®¤ì§€ì»¬ ì˜ˆë§¤ ë°©ë²•",
+  "ì¹´íŽ˜ ì¶”ì²œ ë¦¬ìŠ¤íŠ¸",
   ];
 
   return (
     <div className="search-modal-overlay">
       <div className="search-modal">
         <button className="close-btn" onClick={onClose}>
-          ¡¿
+          ï¿½ï¿½
         </button>
 
-        {/* °Ë»öÃ¢ */}
+        {/* ï¿½Ë»ï¿½Ã¢ */}
         <div className="search-input-area">
           <input
             type="text"
@@ -27,9 +27,9 @@ const SearchModal = ({ onClose }) => {
           <button className="search-btn">Go</button>
         </div>
 
-        {/* ½Ç°Ë ¹Ú½º */}
+        {/* ï¿½Ç°ï¿½ ï¿½Ú½ï¿½ */}
         <div className="top-search-box">
-          <div className="top-search-header">½Ç½Ã°£ °Ë»ö¾î</div>
+          <div className="top-search-header">ì‹¤ì‹œê°„ ê²€ìƒ‰ì–´</div>
           <ul className="top-search-list">
             {trendingKeywords.map((keyword, idx) => (
               <li key={idx}>
