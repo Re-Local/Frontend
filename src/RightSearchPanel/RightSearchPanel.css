@@ -1,0 +1,57 @@
+:root { --topnav-h: 64px; } /* Topnav 높이에 맞게 조절 */
+
+.right-panel {
+  position: fixed;
+  top: var(--topnav-h);
+  right: 0;
+  width: min(380px, 92vw);
+  height: calc(100vh - var(--topnav-h));
+  background: #fff;
+  border-left: 1px solid #e5e7eb;
+  box-shadow: -8px 0 24px rgba(0,0,0,.08);
+  z-index: 1300;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-panel__header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; border-bottom: 1px solid #f1f5f9;
+}
+.close-btn {
+  border: 0; background: transparent; font-size: 22px; cursor: pointer;
+}
+
+.right-panel__search {
+  display: flex; gap: 8px; padding: 12px 16px; border-bottom: 1px solid #f8fafc;
+}
+.right-panel__search input {
+  flex: 1; padding: 8px 10px; border: 1px solid #e5e7eb; border-radius: 8px;
+}
+.right-panel__search button {
+  padding: 8px 12px; border: 0; background: #111827; color: #fff; border-radius: 8px; cursor: pointer;
+}
+
+.right-panel__list { list-style: none; margin: 0; padding: 8px 8px 16px; overflow: auto; }
+.right-panel__list li {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 8px; border-radius: 8px; cursor: pointer;
+}
+.right-panel__list li:hover { background: #f3f4f6; }
+.rank { width: 18px; color: #6b7280; font-weight: 700; text-align: right; }
+.keyword { color: #111827; }
+
+/* (옵션) 화면 어둡게 */
+.right-panel-overlay {
+  position: fixed;
+  top: var(--topnav-h); left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,.15);
+  z-index: 1200;
+}
+
+/* 모바일에서 전체화면로 전환하고 싶다면 */
+@media (max-width: 640px) {
+  .right-panel {
+    width: 100vw; right: 0;
+  }
+}
