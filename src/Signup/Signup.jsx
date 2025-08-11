@@ -1,60 +1,83 @@
-
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';   // ✅ 성공 후 이동
+import axios from 'axios';                        // ✅ 서버 전송
 import './Signup.css';
 
 const COUNTRIES = ['Korea','USA','Japan','China','Germany','France','Canada','UK','Spain','Australia'];
 const LANGUAGES = ['Korean','English','Japanese','Chinese','German','French','Spanish','Portuguese','Russian','Arabic'];
-const TAGS = ['스포츠', '음악', '여행', '요리', '독서', '영화', '게임', '사진', '운동', '학습'];
 
 export default function Signup() {
-  // 직접 입력 필드
+  // 직접 입력
   const [name, setName] = useState('');
-  const [gender, setGender] = useState('');      // "0" or "1" 입력
+  const [gender, setGender] = useState('');      // "0" | "1"
   const [userid, setUserid] = useState('');
   const [password, setPassword] = useState('');
   const [age, setAge] = useState('');
-  const [tags, setTags] = useState([]);
 
-  // 토글 선택 필드
+  // 토글
   const [country, setCountry] = useState('Korea');
   const [language, setLanguage] = useState('Korean');
 
-  const toggle = (list, setter, value) =>
-    setter(prev => prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value]);
+  // 문자열 입력
+  const [interestTag, setInterestTag] = useState('');
 
-  const isInt = (value) => {
-    const num = parseInt(value, 10);
-    return !isNaN(num) && num.toString() === value;
-  };
+  // UX
+  const [loading, setLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState('');
+  const navigate = useNavigate();
 
-  const canSubmit = 
+  const isInt = (v) => /^\d+$/.test(String(v));
+  const isValidGender = gender === '0' || gender === '1';
+
+  const canSubmit =
     name.trim() &&
     userid.trim() &&
     password &&
-    (gender === '0' || gender === '1') &&
+    isValidGender &&
     isInt(age) &&
     country &&
     language &&
-    tags.length > 0;
+    interestTag.trim() &&
+    !loading;
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (!canSubmit) return;
 
     const payload = {
       name: name.trim(),
-      gender: Number(gender),                 // 0 or 1
+      gender: Number(gender),      // 0 or 1
       userid: userid.trim(),
-      password,                               // 실제 서비스에선 해싱 필요!
+      password,                    // ⚠️ 실제 서비스는 서버에서 해싱/솔트 처리
       country,
       language,
       age: parseInt(age, 10),
-      tags
+      interestTag: interestTag.trim(),
     };
 
-    console.log('signup payload:', payload);
-    alert('회원가입 데이터가 콘솔에 출력되었습니다.');
-    // TODO: fetch/axios POST로 서버에 전송
+    try {
+      setLoading(true);
+      setErrMsg('');
+
+      // 🔧 백엔드 회원가입 API URL로 바꿔주세요.
+      // 예: http://localhost:8080/api/auth/signup  또는  http://localhost:5000/api/signup
+      const res = await axios.post('https://re-local.onrender.com/api/users/signup', payload, {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: false, // 쿠키 쓰면 true
+      });
+
+      console.log('서버 응답:', res.data);
+      alert('회원가입이 완료되었습니다!');
+      navigate('/login'); // ✅ 완료 후 로그인 페이지로 이동
+    } catch (err) {
+      console.error(err);
+      setErrMsg(
+        err.response?.data?.message ||
+        '회원가입 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -62,6 +85,12 @@ export default function Signup() {
       <h2>회원가입</h2>
 
       <form className="signup-form" onSubmit={onSubmit}>
+        {errMsg && (
+          <div style={{ color: '#b91c1c', marginBottom: 8, fontSize: 14 }}>
+            {errMsg}
+          </div>
+        )}
+
         {/* 이름 */}
         <label>
           이름
@@ -97,7 +126,7 @@ export default function Signup() {
           />
         </label>
 
-        {/* 성별: 0/1 직접 입력 */}
+        {/* 성별: 0/1 */}
         <label>
           성별 (남자: 0, 여자: 1)
           <input
@@ -127,7 +156,7 @@ export default function Signup() {
           </div>
         </div>
 
-        {/* 언어 토글 (단일 선택) */}
+        {/* 언어 토글 */}
         <div className="field">
           <span className="field-label">언어</span>
           <div className="toggle-group">
@@ -144,7 +173,7 @@ export default function Signup() {
           </div>
         </div>
 
-        {/* 나이 직접 입력 */}
+        {/* 나이 */}
         <label>
           나이
           <input
@@ -156,24 +185,19 @@ export default function Signup() {
           />
         </label>
 
-        <div className="field">
-          <span className="field-label">관심 태그</span>
-          <div className="chip-group">
-            {TAGS.map(t => (
-              <button
-                type="button"
-                key={t}
-                className={`chip ${tags.includes(t) ? 'selected' : ''}`}
-                onClick={() => toggle(tags, setTags, t)}
-              >
-                {t}
-              </button>
-            ))}
-          </div>
-        </div>
+        {/* 관심 태그 */}
+        <label>
+          관심 태그
+          <input
+            type="text"
+            placeholder="예: K-pop, Food, Museum"
+            value={interestTag}
+            onChange={(e) => setInterestTag(e.target.value)}
+          />
+        </label>
 
         <button className="submit" type="submit" disabled={!canSubmit}>
-          회원가입
+          {loading ? '처리 중…' : '회원가입'}
         </button>
       </form>
     </div>
