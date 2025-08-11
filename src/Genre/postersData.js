@@ -2,7 +2,7 @@ const posters = [
     {
       id: 1,
       title: '뮤지컬 헤드윅',
-      category: '뮤지컬',
+      category: 'musical',
       location: '홍대',
       date: '2025-08-10',
       image: '/images/musical.jpg',
@@ -14,7 +14,7 @@ const posters = [
     {
       id: 2,
       title: '릴로앤스티치',
-      category: '영화',
+      category: 'movie',
       location: '용산CGV',
       date: '2025-08-12',
       image: '/images/lilo.jpg',
@@ -26,7 +26,7 @@ const posters = [
     {
       id: 3,
       title: '햄릿',
-      category: '연극',
+      category: 'theater',
       location: '대학로',
       date: '2025-08-18',
       image: '/images/hamlet.jpg',
@@ -38,7 +38,7 @@ const posters = [
     {
       id: 4,
       title: '피카소 전시',
-      category: '전시회',
+      category: 'exhibition',
       location: '리움미술관',
       date: '2025-08-15',
       image: '/images/picasso.jpg',
@@ -50,7 +50,7 @@ const posters = [
     {
       id: 5,
       title: '라이온 킹',
-      category: '뮤지컬',
+      category: 'musical',
       location: '예술의 전당',
       date: '2025-08-22',
       image: '/images/lionking.jpg',
@@ -62,7 +62,7 @@ const posters = [
     {
       id: 6,
       title: '이터널스',
-      category: '영화',
+      category: 'movie',
       location: '메가박스 강남',
       date: '2025-08-25',
       image: '/images/eternals.jpg',
@@ -74,7 +74,7 @@ const posters = [
     {
       id: 7,
       title: '레 미제라블',
-      category: '연극',
+      category: 'theater',
       location: '충무아트센터',
       date: '2025-08-27',
       image: '/images/lesmis.jpg',
@@ -86,7 +86,7 @@ const posters = [
     {
       id: 8,
       title: '현대미술 특별전',
-      category: '전시회',
+      category: 'exhibition',
       location: '서울시립미술관',
       date: '2025-08-30',
       image: '/images/modernart.jpg',
@@ -98,7 +98,7 @@ const posters = [
     {
       id: 9,
       title: '오이디푸스',
-      category: '연극',
+      category: 'theater',
       location: '세종문화회관',
       date: '2025-09-02',
       image: '/images/oedipus.jpg',

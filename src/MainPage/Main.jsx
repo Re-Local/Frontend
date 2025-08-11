@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Topnav from "../components/Topnav";         // 상단바(유지)
 import posters from "./postersData.js";        // 캐러셀용 포스터 데이터
-import SearchModal from "./SearchModal";           // 검색 모달
+import RightSearchPanel from "../RightSearchPanel/RightSearchPanel.jsx";         // 검색 모달
 import "./Main.css";
 
 // 카테고리 버튼 데이터
@@ -140,13 +140,8 @@ export default function Main() {
 
   return (
     <div className="main-page">
-      {/* Topnav에서 돋보기 클릭 시 검색 모달 열기 */}
-      <Topnav onSearchClick={() => setIsSearchOpen(true)} />
-
-  {/* 돋보기를 눌렀을 때 검색 모달 + 실검 박스 표시 */}
-{isSearchOpen && 
-    <SearchModal onClose={() => setIsSearchOpen(false)} />
-  }
+     <Topnav onSearchClick = {() => setIsSearchOpen(true)} />
+      <RightSearchPanel open = {isSearchOpen} onClose={() => setIsSearchOpen(false)} />
 
 
       <div className="spacer" />

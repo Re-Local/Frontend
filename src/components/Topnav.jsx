@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Topnav.css';
 
+
 const Topnav = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [query, setQuery] = useState('');
@@ -37,6 +38,7 @@ const Topnav = () => {
       </div>
 
       {showSearch && (
+        <div className = "search-wrap">
         <form onSubmit={handleSearchSubmit} className="search-bar">
           <input
             type="text"
@@ -46,6 +48,9 @@ const Topnav = () => {
           />
           <button type="submit">Go</button>
         </form>
+
+  
+        </div>
       )}
     </header>
   );
