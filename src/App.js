@@ -6,6 +6,8 @@ import Recommended from './Genre/Recommended';
 import AllPosters from './Genre/AllPosters';
 import Main from './MainPage/Main';
 import Login from './Login/Login'; 
+import Signup from './Signup/Signup';
+
 
 
 
@@ -38,6 +40,10 @@ const router = createBrowserRouter([
     path: "/login", 
     element: <Login />,
   },
+  {
+    path: "/signup",
+    element: <Signup />,
+  }
 
 ]);
 
