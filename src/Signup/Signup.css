@@ -1,0 +1,169 @@
+/* ========== Theme ========== */
+:root {
+  --primary: #3b82f6;           /* 버튼/선택 포인트 */
+  --primary-soft: #eff6ff;      /* 포인트 연한 배경 */
+  --primary-ring: rgba(59,130,246,0.25);
+  --border: #e5e7eb;
+  --border-soft: #d1d5db;
+  --text: #111827;
+  --text-sub: #374151;
+  --bg: #ffffff;
+  --chip-bg: #f9fafb;
+  --shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+/* ========== Wrapper ========== */
+.signup-wrap {
+  max-width: 520px;
+  margin: 60px auto;
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  box-shadow: var(--shadow);
+}
+
+.signup-wrap h2 {
+  margin: 0 0 18px;
+  text-align: center;
+  color: var(--text);
+}
+
+/* ========== Form basics ========== */
+.signup-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0;
+  font-size: 14px;
+  color: var(--text-sub);
+}
+
+.signup-form input {
+  padding: 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  outline: none;
+  background: #fff;
+  color: var(--text);
+}
+
+.signup-form input::placeholder {
+  color: #9ca3af;
+}
+
+.signup-form input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-ring);
+}
+
+/* Field layout */
+.field { margin: 14px 0; }
+.field-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--text-sub);
+}
+
+/* ========== Toggle / Chip group (국가/언어/태그 공통) ========== */
+.toggle-group,
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.toggle-group.scrollable,
+.chip-group.scrollable {
+  max-height: 110px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* 스크롤바 살짝만 커스터마이즈 (웹킷 계열) */
+.toggle-group.scrollable::-webkit-scrollbar,
+.chip-group.scrollable::-webkit-scrollbar { width: 8px; }
+.toggle-group.scrollable::-webkit-scrollbar-thumb,
+.chip-group.scrollable::-webkit-scrollbar-thumb {
+  background: #e5e7eb; border-radius: 8px;
+}
+
+/* Pill 버튼 (국가/언어 토글) */
+.toggle {
+  border: 1px solid var(--border-soft);
+  background: var(--chip-bg);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 14px;
+  color: var(--text);
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+.toggle:hover { background: #f3f4f6; }
+
+.toggle.active {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  box-shadow: 0 0 0 3px var(--primary-ring);
+  color: var(--text);
+}
+
+.toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary-ring);
+}
+
+/* ========== Tag chips (관심 태그 선택용) ========== */
+.chip {
+  border: 1px solid var(--border-soft);
+  background: var(--chip-bg);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+.chip:hover { background: #f3f4f6; }
+
+.chip.selected {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  box-shadow: 0 0 0 3px var(--primary-ring);
+  font-weight: 600;
+}
+
+.chip-reset {
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* ========== Submit button ========== */
+.submit {
+  width: 100%;
+  padding: 12px;
+  margin-top: 14px;
+  border: none;
+  border-radius: 12px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter .15s ease, transform .02s ease;
+}
+
+.submit:hover { filter: brightness(0.96); }
+.submit:active { transform: translateY(1px); }
+
+.submit:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}

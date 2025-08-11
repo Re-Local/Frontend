@@ -5,6 +5,9 @@ import Community from './Community/Community';
 import Recommended from './Genre/Recommended';
 import AllPosters from './Genre/AllPosters';
 import Main from './MainPage/Main';
+import Login from './Login/Login'; 
+import Signup from './Signup/Signup';
+
 
 
 
@@ -33,6 +36,14 @@ const router = createBrowserRouter([
     path: "/genre/all",
     element: <AllPosters />,
   },
+    {
+    path: "/login", 
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
+  }
 
 ]);
 
