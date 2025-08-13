@@ -1,39 +1,50 @@
 // src/MainPage/Main.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import Topnav from "../components/Topnav";         // 상단바(유지)
-import posters from "./postersData.js";        // 캐러셀용 포스터 데이터
+import Topnav from "../components/Topnav";
+import posters from "./postersData.js";
 import SearchModal from "./SearchModal.jsx";
+import EventCalendar from "./EventCalendar"; // ✅ 분리한 캘린더
+import EventPanel from "./EventPanel";       // ✅ 분리한 우측 패널
 import "./Main.css";
 
 // 카테고리 버튼 데이터
 const CATS = [
-  { label: "공연/연극", slug: "theater" },
-  { label: "콘서트", slug: "concert" },
-  { label: "스포츠", slug: "sports" },
-  { label: "전시/행사", slug: "exhibition" },
-  { label: "맛집/카페", slug: "food" },
-  { label: "아동/가족", slug: "kids" },
-  { label: "관광", slug: "tour" },
-  { label: "오늘의 추천", slug: "today" },
+  { label: "소극장 뮤지컬", slug: "musical" },
+  { label: "코미디극", slug: "comedy" },
+  { label: "실험 퍼포먼스", slug: "performance" },
+  { label: "전통극", slug: "traditional" },
+  { label: "드라마극", slug: "drama" },
+  { label: "클래식·무용 공연", slug: "classic-dance" },
 ];
+
+/* ===== 임시 이벤트 데이터(추후 API로 교체 가능) ===== */
+const EVENTS = [
+  { id: 1, title: "Pixel Space 2025", start: "2025-07-28", end: "2025-09-06" },
+  { id: 2, title: "One Step at a Time : Heehwan Seo", start: "2025-07-11", end: "2025-10-12" },
+  { id: 3, title: "Looking at the Calm Light and the Blue Sky", start: "2025-08-06", end: "2025-08-28" },
+  { id: 4, title: "BAZAAR Exhibition : IN-BETWEEN", start: "2025-08-08", end: "2025-08-23" },
+  { id: 5, title: "YMCA Seoul : A Civic History Shaped by Youth", start: "2025-07-18", end: "2026-02-08" },
+];
+
+/* 유틸 */
+const fmt = (d) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+const inRange = (day, start, end) => day >= start && day <= end;
 
 /* ---------------- 상단 메인이벤트(Hero) ---------------- */
 function Hero() {
   const [idx, setIdx] = useState(0);
   const total = posters.length || 1;
 
-  // 자동 슬라이드
   useEffect(() => {
-    if (total <= 1) return; // 카드가 1장 이하일 때는 타이머 불필요
-    const timer = setInterval(() => {
-      setIdx((prev) => (prev + 1) % total);
-    }, 5000);
+    if (total <= 1) return;
+    const timer = setInterval(() => setIdx((prev) => (prev + 1) % total), 5000);
     return () => clearInterval(timer);
   }, [total]);
 
-  const current = posters[idx % total]; // 현재 카드만 사용
-  if (!current) return null;            // 데이터 없을 때 안전장치
+  const current = posters[idx % total];
+  if (!current) return null;
 
   return (
     <header className="hero">
@@ -51,14 +62,13 @@ function Hero() {
 
       {/* 좌우 버튼 + 인디케이터 유지 */}
       <div className="slide-indicator">
-        <button onClick={() => setIdx((i) => (i - 1 + total) % total)}>‹</button>
+        <button type="button" aria-label="Previous" onClick={() => setIdx((i) => (i - 1 + total) % total)}>‹</button>
         <span>{(idx % total) + 1}/{total}</span>
-        <button onClick={() => setIdx((i) => (i + 1) % total)}>›</button>
+        <button type="button" aria-label="Next" onClick={() => setIdx((i) => (i + 1) % total)}>›</button>
       </div>
     </header>
   );
 }
-
 
 /* ---------------- 카테고리 그리드 ---------------- */
 function CategoryGrid({ onPick }) {
@@ -76,60 +86,6 @@ function CategoryGrid({ onPick }) {
   );
 }
 
-/* ---------------- 미니 달력 ---------------- */
-function MiniCalendar() {
-  const today = new Date();
-  const [m, setM] = useState(today.getMonth());
-  const [y, setY] = useState(today.getFullYear());
-
-  const firstDow = new Date(y, m, 1).getDay();
-  const days = new Date(y, m + 1, 0).getDate();
-  const cells = Array.from({ length: firstDow }, () => null).concat(
-    Array.from({ length: days }, (_, i) => i + 1)
-  );
-
-  return (
-    <section className="cal">
-      <div className="cal-head">
-        <button
-          onClick={() => {
-            const d = new Date(y, m - 1, 1);
-            setY(d.getFullYear());
-            setM(d.getMonth());
-          }}
-        >
-          ‹
-        </button>
-        <h3>
-          {y}.{String(m + 1).padStart(2, "0")}
-        </h3>
-        <button
-          onClick={() => {
-            const d = new Date(y, m + 1, 1);
-            setY(d.getFullYear());
-            setM(d.getMonth());
-          }}
-        >
-          ›
-        </button>
-      </div>
-
-      <div className="cal-grid">
-        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
-          <div key={d} className="cal-cell cal-dow">
-            {d}
-          </div>
-        ))}
-        {cells.map((d, i) => (
-          <div key={i} className="cal-cell">
-            {d && <span className="cal-day">{d}</span>}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 /* ---------------- 메인 컴포넌트 ---------------- */
 export default function Main() {
   const navigate = useNavigate();
@@ -138,22 +94,53 @@ export default function Main() {
   // 검색 모달 제어
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
+  // ✅ 날짜 선택 상태
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const selectedKey = fmt(selectedDate);
+
+  // ✅ 선택 날짜에 속하는 이벤트만 필터
+  const eventsOfDay = useMemo(
+    () => EVENTS.filter((e) => inRange(selectedKey, e.start, e.end)),
+    [selectedKey]
+  );
+
+  // ✅ 달력에 표시할 마커(이벤트 있는 모든 날짜)
+  const markers = useMemo(() => {
+    const s = new Set();
+    EVENTS.forEach((e) => {
+      const start = new Date(e.start);
+      const end = new Date(e.end);
+      for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+        s.add(fmt(d));
+      }
+    });
+    return s;
+  }, []);
+
   return (
     <div className="main-page">
       <Topnav onSearchClick={() => setIsSearchOpen(true)} />
-  {isSearchOpen && (
-     <SearchModal onClose={() => setIsSearchOpen(false)} />
- )}
+      {isSearchOpen && <SearchModal onClose={() => setIsSearchOpen(false)} />}
 
       <div className="spacer" />
       <main className="main-container">
         <Hero />
         <CategoryGrid onPick={goGenre} />
-        <MiniCalendar />
+
+        {/* ✅ 좌: 캘린더 / 우: 이벤트 패널 */}
+        <section className="schedule">
+          <EventCalendar
+            selected={selectedDate}
+            onSelect={setSelectedDate}
+            markers={markers}
+          />
+          <EventPanel
+            date={selectedDate}
+            events={eventsOfDay}
+          />
+        </section>
       </main>
     </div>
   );
 }
-
-
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { use, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import './Genre.css';
 import posters from './postersData';
@@ -51,9 +51,18 @@ const SAMPLE_REVIEWS = [
 ];
 
 function ReviewCard({ review }) {
+  const navigate = useNavigate();
+  const goDetail = () => navigate('/content/${review.id}');
   const stars = '★★★★★'.slice(0, review.rating) + '☆☆☆☆☆'.slice(review.rating);
   return (
-    <article className="review-card">
+    <article
+      className="review-card"
+      role="button"
+      tabIndex={0}
+      onClick={goDetail}
+      onKeyDown={(e) => e.key === 'Enter' && goDetail()}
+      aria-label={'Open review detail for ${review.userName}'}
+      >
       <header className="review-header">
         <div className="review-user">
           <div className="review-avatar" aria-hidden />
@@ -353,19 +362,19 @@ const Genre = () => {
         </span>
       </div>
 
-      {/* ===== 리뷰 섹션 ===== */}
-      <section className="review-wrap">
-        <div className="review-title-row">
-          <h3>Community Reviews</h3>
-          <span className="review-count">{filteredReviews.length}개</span>
-        </div>
+{/* ===== 리뷰 섹션 ===== */}
+<section className="review-wrap">
+  <div className="review-title-row">
+    <h3>Results</h3> {/* ← 여기 변경 */}
+    <span className="review-count">{filteredReviews.length}개</span>
+  </div>
 
-        <div className="review-list">
-          {filteredReviews.map((r) => (
-            <ReviewCard key={r.id} review={r} />
-          ))}
-        </div>
-      </section>
+  <div className="review-list">
+    {filteredReviews.map((r) => (
+      <ReviewCard key={r.id} review={r} />
+    ))}
+  </div>
+</section>
     </div>
   );
 };

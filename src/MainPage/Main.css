@@ -1,7 +1,10 @@
-/* 페이지 기본 */
+/* ========================
+   페이지 기본
+======================== */
 .main-page {
-  background-color: #f8fafd;
+  background-color: #FAF9F6; /* 크림 화이트 배경 */
   min-height: 100vh;
+  color: #1C1C1C; /* 딥 차콜 텍스트 */
 }
 
 .main-container {
@@ -11,10 +14,12 @@
 }
 
 .spacer {
-  height: 60px; /* Topnav 높이만큼 공간 */
+  height: 60px;
 }
 
-/* Hero 영역 */
+/* ========================
+   Hero 영역
+======================== */
 .hero {
   text-align: center;
   margin-bottom: 30px;
@@ -23,10 +28,11 @@
 .hero h1 {
   font-size: 1.8rem;
   margin-bottom: 6px;
+  color: #8B0000; /* 딥 레드 */
 }
 
 .hero p {
-  color: #666;
+  color: #C5A572; /* 샴페인 골드 포인트 */
   margin-bottom: 20px;
 }
 
@@ -40,33 +46,32 @@
 
 .poster-card {
   flex: 0 0 30%;
-  background: white;
+  background: #FFFFFF;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   padding: 10px;
   transition: transform 0.2s ease;
+  border: 2px solid #C5A572; /* 샴페인 골드 테두리 */
 }
 
-.poster-card:hover {
-  transform: translateY(-4px);
-}
+.poster-card:hover { transform: translateY(-4px); }
 
 .poster-img {
   width: 700px;
-  height: 400px; 
+  height: 400px;
   object-fit: cover;
   border-radius: 10px;
 }
 
-
 .poster-title {
   font-weight: bold;
   margin-top: 8px;
+  color: #1C1C1C; /* 딥 차콜 */
 }
 
 .poster-info {
   font-size: 0.9rem;
-  color: #666;
+  color: #8B0000; /* 딥 레드 */
 }
 
 .slide-indicator {
@@ -81,22 +86,24 @@
   border: none;
   font-size: 1.4rem;
   cursor: pointer;
+  color: #8B0000; /* 딥 레드 */
 }
 
 .slide-indicator span {
   font-size: 0.95rem;
-  color: #333;
+  color: #1C1C1C; /* 딥 차콜 */
 }
 
-/* 카테고리 그리드 */
-.section {
-  margin-bottom: 30px;
-}
+/* ========================
+   카테고리 그리드 (3x2)
+======================== */
+.section { margin-bottom: 30px; }
 
 .cat-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* 3개씩 한 줄 */
   gap: 12px;
+  justify-items: center; /* 버튼 가운데 정렬 */
 }
 
 .cat {
@@ -107,23 +114,31 @@
 }
 
 .cat-box {
-  background-color: #e0e7ff;
-  height: 60px;
+  background-color: #8B0000; /* 딥 레드 */
+  width: 160px;  /* 버튼 너비 고정 */
+  height: 80px;  /* 버튼 높이 고정 */
   border-radius: 8px;
   margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cat-label {
   font-size: 0.9rem;
-  color: #333;
+  color: #1C1C1C; /* 딥 차콜 */
+  text-align: center;
 }
 
-/* 달력 */
+/* ========================
+   달력 (기본 스타일)
+======================== */
 .cal {
-  background: white;
+  background: #FFFFFF;
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border: 2px solid #C5A572; /* 샴페인 골드 */
 }
 
 .cal-head {
@@ -131,6 +146,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  color: #1C1C1C; /* 딥 차콜 */
 }
 
 .cal-head button {
@@ -138,6 +154,7 @@
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
+  color: #8B0000; /* 딥 레드 */
 }
 
 .cal-grid {
@@ -150,18 +167,112 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative; /* 마커 위치 기준 */
 }
 
 .cal-dow {
   font-weight: bold;
+  color: #1C1C1C;
 }
 
+/* 날짜 기본 모양 (원형) */
 .cal-day {
-  background-color: #e0e7ff;
+  background-color: #8B0000; /* 딥 레드 날짜 배경 */
+  color: #FFFFFF;            /* 흰색 숫자 */
   border-radius: 50%;
   width: 28px;
   height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* ========================
+   2단 스케줄 레이아웃
+   (좌: 작은 캘린더 / 우: 이벤트 패널)
+======================== */
+.schedule {
+  display: grid;
+  grid-template-columns: 340px 1fr; /* 좌: 달력(축소) / 우: 리스트 */
+  gap: 24px;
+  align-items: start;
+  margin-top: 16px;
+}
+
+/* 캘린더 축소 버전 + 선택/마커 */
+.cal.cal-compact { padding: 16px; }
+.cal.cal-compact .cal-grid { row-gap: 10px; }
+
+.cal.cal-compact .cal-day {
+  width: 32px; height: 32px;             /* 기존보다 작게 */
+  background-color: #8B0000;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+
+.cal.cal-compact .cal-day.is-selected {
+  outline: 3px solid rgba(197,165,114,0.35); /* 샴페인 골드 링 */
+  box-shadow: 0 0 0 2px #FAF9F6 inset;
+}
+
+.cal-dot {
+  position: absolute;
+  bottom: -6px;
+  font-size: 10px;
+  color: #2eb872; /* 이벤트 마커(초록 ◆) */
+}
+
+/* 우측 이벤트 패널 */
+.events-panel {
+  background: rgba(255,255,255,0.9);
+  border: 2px solid #C5A572;        /* 샴페인 골드 */
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  max-height: 520px;
+  overflow: auto;
+}
+
+.events-head h3 {
+  margin: 0 0 8px;
+  color: #1C1C1C;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.events-head .weekday {
+  margin-left: 6px;
+  color: #8B0000;
+  font-size: .95rem;
+}
+
+.event-list { list-style: none; margin: 0; padding: 0; }
+
+.event-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 4px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.event-item:first-child { border-top: none; }
+
+.event-left { display: inline-flex; align-items: center; gap: 10px; }
+
+.event-bullet { color: #2eb872; font-size: 14px; }
+
+.event-title { font-weight: 600; color: #1C1C1C; }
+
+.event-range { color: #555; font-size: .92rem; }
+
+.event-empty { padding: 16px 4px; color: #555; }
+
+/* 반응형: 폭이 좁아지면 1단으로 */
+@media (max-width: 960px) {
+  .schedule { grid-template-columns: 1fr; }
 }

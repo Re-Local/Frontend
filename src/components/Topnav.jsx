@@ -3,10 +3,14 @@ import './Topnav.css';
 
 export default function Topnav({ onSearchClick = () => {} }) {
   return (
-    <header className="topnav" style={{ height: '64px' }}>
+    <header className="topnav">
       <div className="menu-toggle">☰</div>
 
-      <h1 className="logo">CultureNow</h1>
+      {/* 로고 + 태그라인 */}
+      <div className="logo-wrapper">
+        <h1 className="logo">KurtainCall</h1>
+        <p className="tagline">Your Gateway to Korea’s Hidden Stages</p>
+      </div>
 
       <div className="topnav-right">
         <span
