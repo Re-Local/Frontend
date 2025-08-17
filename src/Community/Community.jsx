@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Topnav from '../components/Topnav';
+import SearchModal from '../components/SearchModal';
 import './Community.css';
 
 const Community = () => {
@@ -16,6 +17,7 @@ const Community = () => {
   ]);
 
   const [newPost, setNewPost] = useState("");
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const handleShare = () => {
     if (!newPost.trim()) return;
@@ -37,7 +39,8 @@ const Community = () => {
 
   return (
     <div className="community-page">
-      <Topnav />
+      <Topnav onSearchClick={() => setIsSearchOpen(true)} />
+      {isSearchOpen && <SearchModal onClose={() => setIsSearchOpen(false)} />}
 
       <h2 className="community-title">🎀 Welcome to our Community 🎀</h2>
 

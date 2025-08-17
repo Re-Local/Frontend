@@ -1,10 +1,14 @@
 :root {
-  --primary: #2196f3;             /* 진한 skyblue */
-  --primary-light: #e3f2fd;
-  --bg-light: #f9fcfe;
-  --text-dark: #333;
-  --text-soft: #777;
-  --shadow-soft: 0 2px 8px rgba(33, 150, 243, 0.1);
+  --burgundy: #8B0000;
+  --burgundy-light: #A52A2A;
+  --gold: #FFD700;
+  --gold-dark: #B8860B;
+  --dark: #1a1a1a;
+  --dark-light: #2d2d2d;
+  --text-light: #e0e0e0;
+  --text-grey: #9ca3af;
+  --shadow-dark: 0 4px 20px rgba(139, 0, 0, 0.3);
+  --shadow-gold: 0 4px 20px rgba(255, 215, 0, 0.2);
 }
 
 body {
@@ -44,102 +48,282 @@ body {
   color: var(--text-dark);
 }
 
+/* 커뮤니티 페이지 전체 배경 */
+.community-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d2d2d 100%);
+  color: var(--text-light);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* 커튼 배경 효과 */
+.community-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(45deg, 
+    rgba(139, 0, 0, 0.1) 0%, 
+    rgba(255, 215, 0, 0.05) 25%, 
+    rgba(139, 0, 0, 0.1) 50%, 
+    rgba(255, 215, 0, 0.05) 75%, 
+    rgba(139, 0, 0, 0.1) 100%);
+  transform: skewX(-15deg);
+  z-index: -1;
+  animation: curtainFloat 20s ease-in-out infinite;
+}
+
+.community-page::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(-45deg, 
+    rgba(255, 215, 0, 0.05) 0%, 
+    rgba(139, 0, 0, 0.1) 25%, 
+    rgba(255, 215, 0, 0.05) 50%, 
+    rgba(139, 0, 0, 0.1) 75%, 
+    rgba(255, 215, 0, 0.05) 100%);
+  transform: skewX(15deg);
+  z-index: -1;
+  animation: curtainFloat 25s ease-in-out infinite reverse;
+}
+
+@keyframes curtainFloat {
+  0%, 100% { transform: skewX(-15deg) translateX(0); }
+  50% { transform: skewX(-15deg) translateX(20px); }
+}
+
 /* 커뮤니티 페이지 레이아웃 */
 .community-page {
   max-width: 1200px;
   margin: auto;
   padding: 30px 20px;
+  position: relative;
+  z-index: 1;
 }
 
 /* 타이틀 */
 .community-title {
-  color: var(--primary);
-  font-size: 1.6rem;
+  color: var(--gold);
+  font-size: 2rem;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  position: relative;
+}
+
+.community-title::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  animation: curtainLine 3s ease-in-out infinite;
+}
+
+@keyframes curtainLine {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
 }
 
 /* 필터 */
 .community-filters {
   display: flex;
-  gap: 10px;
+  gap: 15px;
   justify-content: center;
-  margin-bottom: 24px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.filter-select {
+  background: var(--dark-light);
+  border: 2px solid var(--burgundy);
+  color: var(--text-light);
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
 }
 
 .tab {
-  background: white;
-  border: 1px solid var(--primary);
-  color: var(--primary);
-  padding: 6px 16px;
-  border-radius: 20px;
+  background: var(--dark-light);
+  border: 2px solid var(--burgundy);
+  color: var(--text-light);
+  padding: 8px 20px;
+  border-radius: 25px;
   font-size: 14px;
-  transition: 0.2s;
+  transition: all 0.3s ease;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.tab:hover::before {
+  left: 100%;
 }
 
 .tab:hover {
-  background: var(--primary-light);
+  background: var(--burgundy);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
 }
 
 .tab.active {
-  background: var(--primary);
-  color: white;
+  background: linear-gradient(135deg, var(--burgundy), var(--burgundy-light));
+  border-color: var(--gold);
+  color: var(--gold);
+  box-shadow: var(--shadow-gold);
 }
 
 /* 업로드 박스 */
 .upload-box {
-  background: white;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: var(--shadow-soft);
-  margin-bottom: 30px;
+  background: linear-gradient(135deg, var(--dark-light), var(--dark));
+  padding: 25px;
+  border-radius: 20px;
+  border: 2px solid var(--burgundy);
+  margin-bottom: 35px;
+  box-shadow: var(--shadow-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--burgundy), var(--gold));
+  animation: curtainLine 4s ease-in-out infinite;
 }
 
 .upload-header {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 15px;
 }
 
 .profile-pic {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
 }
 
 .upload-box textarea {
   width: 100%;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 8px;
+  background: var(--dark);
+  border: 2px solid var(--burgundy);
+  color: var(--text-light);
+  padding: 15px;
+  border-radius: 15px;
   resize: none;
-  height: 70px;
+  height: 80px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.upload-box textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.upload-box textarea::placeholder {
+  color: var(--text-grey);
 }
 
 .upload-options {
   display: flex;
-  gap: 10px;
-  margin-top: 12px;
+  gap: 12px;
+  margin-top: 15px;
   justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
-.upload-options button,
-.submit-btn {
-  background: var(--primary);
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 20px;
+.upload-options button {
+  background: var(--dark);
+  border: 2px solid var(--burgundy);
+  color: var(--text-light);
+  padding: 10px 18px;
+  border-radius: 25px;
   cursor: pointer;
   font-size: 13px;
-  box-shadow: var(--shadow-soft);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-options button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.upload-options button:hover::before {
+  left: 100%;
+}
+
+.upload-options button:hover {
+  background: var(--burgundy);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, var(--burgundy), var(--burgundy-light)) !important;
+  border-color: var(--gold) !important;
+  color: var(--gold) !important;
+  font-weight: 600;
+  box-shadow: var(--shadow-gold);
+}
+
+.submit-btn:hover {
+  background: linear-gradient(135deg, var(--burgundy-light), var(--burgundy)) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 25px rgba(255, 215, 0, 0.4) !important;
 }
 
 /* 메인 */
 .community-main {
   display: flex;
-  gap: 24px;
+  gap: 30px;
 }
 
 /* 왼쪽 피드 */
@@ -149,56 +333,96 @@ body {
 
 /* 카드 */
 .post-card {
-  background: white;
-  border-radius: 16px;
-  box-shadow: var(--shadow-soft);
-  padding: 20px;
-  margin-bottom: 24px;
+  background: linear-gradient(135deg, var(--dark-light), var(--dark));
+  border-radius: 20px;
+  border: 2px solid var(--burgundy);
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: var(--shadow-dark);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.post-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--burgundy), var(--gold));
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(139, 0, 0, 0.4);
+  border-color: var(--gold);
 }
 
 .post-user {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: 15px;
+  margin-bottom: 15px;
 }
 
 .user-info p {
   margin: 0;
   font-size: 13px;
-  color: var(--text-soft);
+  color: var(--text-grey);
 }
 
 .rating {
   margin-left: auto;
-  color: var(--primary);
+  color: var(--gold);
+  font-size: 16px;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
 .post-photo {
-  background-color: #eee;
-  height: 200px;
-  border-radius: 12px;
-  margin: 15px 0;
+  background: linear-gradient(135deg, var(--dark), var(--dark-light));
+  height: 220px;
+  border-radius: 15px;
+  margin: 20px 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #aaa;
+  color: var(--text-grey);
+  border: 2px dashed var(--burgundy);
+  font-size: 18px;
+}
+
+.post-tags {
+  margin: 15px 0;
 }
 
 .post-tags button {
-  background: var(--primary-light);
-  border: none;
-  padding: 4px 10px;
-  border-radius: 14px;
+  background: var(--dark);
+  border: 1px solid var(--burgundy);
+  color: var(--text-light);
+  padding: 6px 12px;
+  border-radius: 20px;
   font-size: 12px;
-  margin-right: 8px;
-  color: var(--primary);
+  margin-right: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.post-tags button:hover {
+  background: var(--burgundy);
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-2px);
 }
 
 .post-actions {
-  margin-top: 10px;
-  font-size: 13px;
-  color: #666;
+  margin-top: 15px;
+  font-size: 14px;
+  color: var(--text-grey);
+  padding: 10px 0;
+  border-top: 1px solid var(--burgundy);
 }
 
 /* 오른쪽 사이드바 */
@@ -208,40 +432,126 @@ body {
 
 .upcoming-events,
 .community-lists {
-  background: white;
-  padding: 16px;
-  border-radius: 14px;
-  box-shadow: var(--shadow-soft);
-  margin-bottom: 20px;
+  background: linear-gradient(135deg, var(--dark-light), var(--dark));
+  padding: 20px;
+  border-radius: 18px;
+  border: 2px solid var(--burgundy);
+  margin-bottom: 25px;
+  box-shadow: var(--shadow-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.upcoming-events::before,
+.community-lists::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--burgundy), var(--gold));
 }
 
 .upcoming-events h4,
 .community-lists h4 {
-  font-size: 1.1rem;
-  color: var(--text-dark);
-  margin-bottom: 12px;
+  font-size: 1.2rem;
+  color: var(--gold);
+  margin-bottom: 15px;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
 }
 
 .upcoming-events ul,
 .community-lists ul {
-  padding-left: 18px;
+  padding-left: 20px;
   margin: 0;
 }
 
 .upcoming-events li,
 .community-lists li {
-  margin-bottom: 6px;
-  list-style: square;
-  color: var(--text-soft);
+  margin-bottom: 8px;
+  list-style: none;
+  color: var(--text-light);
+  position: relative;
+  padding-left: 20px;
+}
+
+.upcoming-events li::before,
+.community-lists li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 14px;
 }
 
 .view-all {
-  margin-top: 10px;
-  background-color: var(--primary);
-  color: white;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 16px;
+  margin-top: 15px;
+  background: linear-gradient(135deg, var(--burgundy), var(--burgundy-light));
+  color: var(--gold);
+  padding: 10px 20px;
+  border: 2px solid var(--gold);
+  border-radius: 20px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.view-all::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.view-all:hover::before {
+  left: 100%;
+}
+
+.view-all:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-gold);
+  background: linear-gradient(135deg, var(--burgundy-light), var(--burgundy));
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .community-main {
+    flex-direction: column;
+  }
+  
+  .feed-right {
+    order: -1;
+  }
+  
+  .community-filters {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .upload-options {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .community-page {
+    padding: 20px 15px;
+  }
+  
+  .community-title {
+    font-size: 1.5rem;
+  }
+  
+  .upload-box,
+  .post-card {
+    padding: 20px;
+  }
 }

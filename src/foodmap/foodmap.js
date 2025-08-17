@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Topnav from '../components/Topnav';
-import './Foodmap.css';
+import './foodmap.css';
+// @ts-ignore
 import { feature } from 'topojson-client';
 
 const Foodmap = () => {
@@ -20,20 +21,66 @@ const Foodmap = () => {
   useEffect(() => {
     const loadScript = () =>
       new Promise((resolve, reject) => {
+        // 이미 로드된 스크립트가 있는지 확인
+        if (window.kakao && window.kakao.maps) {
+          return resolve();
+        }
+        
         const existing = document.querySelector('script[src^="https://dapi.kakao.com"]');
-        if (existing) return resolve();
+        if (existing) {
+          // 기존 스크립트가 있지만 아직 로드되지 않은 경우
+          const checkKakao = () => {
+            if (window.kakao && window.kakao.maps) {
+              resolve();
+            } else {
+              setTimeout(checkKakao, 100);
+            }
+          };
+          checkKakao();
+          return;
+        }
+        
         const script = document.createElement('script');
         script.src = 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=039270177862ec2c7c46e905b6d3352f&autoload=false';
         script.async = true;
-        script.onload = () => resolve();
-        script.onerror = () => reject(new Error('Kakao script load error'));
+        script.onload = () => {
+          // 스크립트 로드 후 kakao 객체가 준비될 때까지 대기
+          const checkKakao = () => {
+            if (window.kakao && window.kakao.maps) {
+              resolve();
+            } else {
+              setTimeout(checkKakao, 100);
+            }
+          };
+          checkKakao();
+        };
+        script.onerror = () => reject(new Error('Failed to load Kakao Maps SDK'));
         document.head.appendChild(script);
       });
 
     let goBackButton = null;
 
-    loadScript().then(() => {
-      window.kakao.maps.load(async () => {
+    const initializeMap = async () => {
+      try {
+        await loadScript();
+        
+        // Kakao Maps SDK가 로드되었는지 확인
+        if (typeof window.kakao === 'undefined' || !window.kakao.maps) {
+          throw new Error('Kakao Maps SDK failed to load properly.');
+        }
+
+        // Load Kakao Maps with timeout
+        try {
+          await Promise.race([
+            window.kakao.maps.load(),
+            new Promise((_, reject) => 
+              setTimeout(() => reject(new Error('Kakao Maps load timeout')), 10000)
+            )
+          ]);
+        } catch (loadError) {
+          throw new Error(`Failed to initialize Kakao Maps: ${loadError.message}`);
+        }
+        
         if (!mapRef.current) return;
 
         const map = new window.kakao.maps.Map(mapRef.current, {
@@ -41,8 +88,12 @@ const Foodmap = () => {
           level: 9,
         });
 
-        const seoulMap = await (await fetch('/seoul.geojson')).json();
-        const dongDataRaw = await (await fetch('/seoul_districts_topo.json')).json();
+        // 지도 데이터 로딩
+        const [seoulMap, dongDataRaw] = await Promise.all([
+          fetch('/seoul.geojson').then(res => res.json()),
+          fetch('/seoul_districts_topo.json').then(res => res.json())
+        ]);
+
         const dongData = feature(dongDataRaw, dongDataRaw.objects.admdong_seoul_codeEdit_1);
 
         const customOverlay = new window.kakao.maps.CustomOverlay({});
@@ -175,8 +226,14 @@ const Foodmap = () => {
         seoulMap.features.forEach((f) => {
           displayArea(f.geometry.coordinates[0], f.properties.SIG_KOR_NM);
         });
-      });
-    });
+        
+      } catch (err) {
+        console.error('Map initialization error:', err);
+        // 에러가 발생해도 지도는 표시되도록 함
+      }
+    };
+
+    initializeMap();
 
     return () => {
       if (goBackButton) goBackButton.remove();

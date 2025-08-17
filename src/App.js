@@ -7,7 +7,7 @@ import AllPosters from './Genre/AllPosters';
 import Main from './MainPage/Main';
 import Login from './Login/Login'; 
 import Signup from './Signup/Signup';
-
+import ContentDetail from "./ContentDetail/ContentDetail";
 
 
 
@@ -43,7 +43,11 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />,
+  },
+  {
+    path: "/content/:id", element: <ContentDetail />
   }
+  
 
 ]);
 

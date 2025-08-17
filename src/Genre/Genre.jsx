@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { use, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import './Genre.css';
 import posters from './postersData';
-import TopNav from '../components/Topnav';
+import Topnav from '../components/Topnav';
 
 // === 샘플 리뷰 (기존과 동일) =========================================
 const SAMPLE_REVIEWS = [
@@ -18,7 +18,7 @@ const SAMPLE_REVIEWS = [
     date: '2025-08-10',
     photos: [],
     content:
-      'Visited a small local market near Jagalchi. Super friendly vendors and amazing street food! If you want the “real local” vibe, don’t miss this place.',
+      'Visited a small local market near Jagalchi. Super friendly vendors and amazing street food! If you want the "real local" vibe, don\'t miss this place.',
   },
   {
     id: 'r2',
@@ -51,9 +51,18 @@ const SAMPLE_REVIEWS = [
 ];
 
 function ReviewCard({ review }) {
+  const navigate = useNavigate();
+  const goDetail = () => navigate(`/content/${review.id}`);
   const stars = '★★★★★'.slice(0, review.rating) + '☆☆☆☆☆'.slice(review.rating);
   return (
-    <article className="review-card">
+    <article
+      className="review-card"
+      role="button"
+      tabIndex={0}
+      onClick={goDetail}
+      onKeyDown={(e) => e.key === 'Enter' && goDetail()}
+      aria-label={`Open review detail for ${review.userName}`}
+      >
       <header className="review-header">
         <div className="review-user">
           <div className="review-avatar" aria-hidden />
@@ -104,7 +113,7 @@ const COUNTRY_OPTIONS = [
   { value: 'uk', label: '영국' },
   { value: 'us', label: '미국' },
   { value: 'cn', label: '중국' },
-  { value: 'jp', label: '일본' },
+  { value: 'us', label: '일본' },
   { value: 'es', label: '스페인' },
   { value: 'de', label: '독일' },
   { value: 'kr', label: '한국' },
@@ -128,10 +137,10 @@ const Genre = () => {
 
   // === 필터 상태 (요청대로 4종) =========================
   const [filters, setFilters] = useState({
-    country: 'all',
-    language: 'all',
     ratingSort: 'none', // 'high' | 'low'
     viewsSort: 'none',  // 'desc'
+    deadlineSort: 'none', // 'urgent' | 'normal'
+    priceSort: 'none',  // 'low' | 'high'
     q: '',
   });
 
@@ -147,23 +156,6 @@ const Genre = () => {
   const filteredSortedList = useMemo(() => {
     let arr = [...baseList];
 
-    // 국가별
-    if (filters.country !== 'all') {
-      arr = arr.filter((p) => {
-        const v =
-          (p.country || p.locationCountry || p.countryCode || '').toString().toLowerCase();
-        return v === filters.country;
-      });
-    }
-    // 언어별
-    if (filters.language !== 'all') {
-      const code = filters.language.toLowerCase();
-      arr = arr.filter((p) => {
-        const lang =
-          (p.language || p.lang || (p.hasEnglish ? 'en' : '')).toString().toLowerCase();
-        return lang === code;
-      });
-    }
     // 검색어
     if (filters.q.trim()) {
       const q = filters.q.trim().toLowerCase();
@@ -185,6 +177,24 @@ const Genre = () => {
     // 정렬: 조회수 (선택 시 우선 적용)
     if (filters.viewsSort === 'desc') {
       arr.sort((a, b) => (b?.views ?? 0) - (a?.views ?? 0));
+    }
+
+    // 정렬: 마감임박순
+    if (filters.deadlineSort === 'urgent') {
+      arr.sort((a, b) => {
+        const aUrgent = a.deadline?.includes('마감') || a.deadline?.includes('오늘') || a.deadline?.includes('이번 주');
+        const bUrgent = b.deadline?.includes('마감') || b.deadline?.includes('오늘') || b.deadline?.includes('이번 주');
+        if (aUrgent && !bUrgent) return -1;
+        if (!aUrgent && bUrgent) return 1;
+        return 0;
+      });
+    }
+
+    // 정렬: 가격순
+    if (filters.priceSort === 'low') {
+      arr.sort((a, b) => (a?.price ?? 0) - (b?.price ?? 0));
+    } else if (filters.priceSort === 'high') {
+      arr.sort((a, b) => (b?.price ?? 0) - (a?.price ?? 0));
     }
 
     return arr;
@@ -223,22 +233,26 @@ const Genre = () => {
 
   const resetToAll = () => {
     setViewMode('all');
-    setFilters({ country: 'all', language: 'all', ratingSort: 'none', viewsSort: 'none', q: '' });
+    setFilters({ 
+      ratingSort: 'none', 
+      viewsSort: 'none', 
+      deadlineSort: 'none',
+      priceSort: 'none',
+      q: '' 
+    });
   };
 
   // 리뷰는 언어 필터만 가볍게 연동 (그 외는 기존 그대로)
-  const filteredReviews =
-    filters.language === 'all'
-      ? SAMPLE_REVIEWS
-      : SAMPLE_REVIEWS.filter((r) =>
-          filters.language === 'en' ? r.lang === 'en' : r.lang === 'ko'
-        );
+  const filteredReviews = SAMPLE_REVIEWS;
 
   return (
     <div className="genre-container">
-      <TopNav />
+      <Topnav />
 
-      <h2 className="genre-title">Recommendation For U</h2>
+      <h2 className="genre-title">
+        Recommendation For U
+        <span className="genre-subtitle">* 테스트를 진행하면 맞춤 추천결과를 볼 수 있습니다.</span>
+      </h2>
       {category && <span className="category-chip">{category}</span>}
 
       {/* ===== 포스터 섹션 (위) ===== */}
@@ -247,7 +261,12 @@ const Genre = () => {
       ) : (
         <section className="poster-section carousel">
           {visiblePosters.map((p) => (
-            <div key={p.id} className="poster-card-mine">
+            <div 
+              key={p.id} 
+              className="poster-card-mine"
+              onClick={() => navigate('/genre/recommended', { state: { selectedPoster: p } })}
+              style={{ cursor: 'pointer' }}
+            >
               <img src={p.image} alt={p.title} className="poster-img-mine" />
               <div className="poster-title">{p.title}</div>
               <div className="poster-info">
@@ -260,61 +279,61 @@ const Genre = () => {
 
       {/* ===== 필터 박스 ===== */}
       <section className="filter-wrap">
-        <div className="filter-title">필터</div>
+        <div className="filter-title">Filter</div>
 
         <div className="filter-grid">
-          {/* 국가별 */}
+          {/* 평점순 */}
           <div className="filter-item">
-            <label>국가별</label>
-            <select className="filter-select" value={filters.country} onChange={onChange('country')}>
-              {COUNTRY_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value}>
-                  {o.label} ({baseList.length}개)
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* 언어별 */}
-          <div className="filter-item">
-            <label>언어별</label>
-            <select
-              className="filter-select"
-              value={filters.language}
-              onChange={onChange('language')}
-            >
-              {LANG_OPTIONS.map((o) => (
-                <option key={o.value} value={o.value}>
-                  {o.label} ({baseList.length}개)
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* 후기평점 */}
-          <div className="filter-item">
-            <label>후기 평점</label>
+            <label>Rating</label>
             <select
               className="filter-select"
               value={filters.ratingSort}
               onChange={onChange('ratingSort')}
             >
-              <option value="none">정렬 없음</option>
-              <option value="high">평점 높은순</option>
-              <option value="low">평점 낮은순</option>
+              <option value="none">Sort None</option>
+              <option value="high">High Rating</option>
+              <option value="low">Low Rating</option>
             </select>
           </div>
 
           {/* 조회수 */}
           <div className="filter-item">
-            <label>조회수</label>
+            <label>Views</label>
             <select
               className="filter-select"
               value={filters.viewsSort}
               onChange={onChange('viewsSort')}
             >
-              <option value="none">정렬 없음</option>
-              <option value="desc">조회수 높은순</option>
+              <option value="none">Sort None</option>
+              <option value="desc">High Views</option>
+            </select>
+          </div>
+
+          {/* 마감임박순 */}
+          <div className="filter-item">
+            <label>Deadline</label>
+            <select
+              className="filter-select"
+              value={filters.deadlineSort}
+              onChange={onChange('deadlineSort')}
+            >
+              <option value="none">Sort None</option>
+              <option value="urgent">Urgent</option>
+              <option value="normal">Normal</option>
+            </select>
+          </div>
+
+          {/* 낮은가격순 */}
+          <div className="filter-item">
+            <label>Price</label>
+            <select
+              className="filter-select"
+              value={filters.priceSort}
+              onChange={onChange('priceSort')}
+            >
+              <option value="none">Sort None</option>
+              <option value="low">Low Price</option>
+              <option value="high">High Price</option>
             </select>
           </div>
         </div>
@@ -323,13 +342,13 @@ const Genre = () => {
         <div className="filter-search-row">
           <input
             type="text"
-            placeholder="제목·장소 검색"
+            placeholder="Title·Location Search"
             value={filters.q}
             onChange={onChange('q')}
             onKeyDown={(e) => e.key === 'Enter' && onSearch()}
           />
           <button className="btn-primary" onClick={onSearch}>
-            검색
+            Search
           </button>
         </div>
       </section>
@@ -349,23 +368,23 @@ const Genre = () => {
           Filtering
         </button>
         <span className="mode-info">
-          {viewMode === 'all' ? `전체 ${baseList.length}개` : `필터 적용 ${filteredSortedList.length}개`}
+          {viewMode === 'all' ? `Total ${baseList.length} items` : `Filtered ${filteredSortedList.length} items`}
         </span>
       </div>
 
-      {/* ===== 리뷰 섹션 ===== */}
-      <section className="review-wrap">
-        <div className="review-title-row">
-          <h3>Community Reviews</h3>
-          <span className="review-count">{filteredReviews.length}개</span>
-        </div>
+{/* ===== 리뷰 섹션 ===== */}
+<section className="review-wrap">
+  <div className="review-title-row">
+    <h3>Results</h3> {/* ← 여기 변경 */}
+    <span className="review-count">{filteredReviews.length} items</span>
+  </div>
 
-        <div className="review-list">
-          {filteredReviews.map((r) => (
-            <ReviewCard key={r.id} review={r} />
-          ))}
-        </div>
-      </section>
+  <div className="review-list">
+    {filteredReviews.map((r) => (
+      <ReviewCard key={r.id} review={r} />
+    ))}
+  </div>
+</section>
     </div>
   );
 };
