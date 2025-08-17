@@ -10,7 +10,6 @@ export default function Topnav() {
   const [isLanguageModalOpen, setIsLanguageModalOpen] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState('ko'); // 언어 상태를 Topnav에서 관리
-
   const toggleSideMenu = () => {
     setIsSideMenuOpen(!isSideMenuOpen);
   };
@@ -107,6 +106,8 @@ export default function Topnav() {
             <li><a href="/genre" onClick={closeSideMenu}>Genre</a></li>
             <li><a href="/community" onClick={closeSideMenu}>Community</a></li>
             <li><a href="/foodmap" onClick={closeSideMenu}>Food Map</a></li>
+            <li><a href="/test/my-test" onClick={closeSideMenu}>Test</a></li>
+            <li><a href="/ai-translation" onClick={closeSideMenu}>AI Translation</a></li>
             <li><a href="/login" onClick={closeSideMenu}>Login</a></li>
             <li><a href="/signup" onClick={closeSideMenu}>Sign Up</a></li>
           </ul>
