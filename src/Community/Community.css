@@ -336,105 +336,238 @@ body {
   flex: 2;
 }
 
-/* 카드 */
-.post-card {
-  background: linear-gradient(135deg, var(--dark-light), var(--dark));
-  border-radius: 20px;
-  border: 2px solid var(--burgundy);
-  padding: 25px;
+/* 리뷰카드 - Genre 페이지와 동일한 스타일 */
+.review-card {
+  background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+  border: 2px solid #8B0000;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  padding: 20px;
   margin-bottom: 30px;
-  box-shadow: var(--shadow-dark);
   transition: all 0.3s ease;
+  cursor: pointer;
   position: relative;
   overflow: hidden;
 }
 
-.post-card::before {
+.review-card::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--gold), var(--burgundy), var(--gold));
+  height: 3px;
+  background: linear-gradient(90deg, #8B0000, #d4af37, #8B0000);
 }
 
-.post-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(139, 0, 0, 0.4);
-  border-color: var(--gold);
+.review-card:hover {
+  transform: translateY(-8px);
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  border-color: #d4af37;
+  box-shadow: 0 15px 35px rgba(139, 0, 0, 0.3);
 }
 
-.post-user {
+.review-card:active {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(139, 0, 0, 0.3);
+}
+
+.review-card:focus-visible {
+  outline: 2px solid #d4af37;
+  outline-offset: 3px;
+  transform: translateY(-8px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .review-card { transition: none; }
+}
+
+.review-header {
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-bottom: 15px;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
 }
 
-.user-info strong {
-  color: var(--text-light);
-  font-size: 16px;
-  display: block;
-  margin-bottom: 5px;
+.review-user { 
+  display: flex; 
+  align-items: center; 
+  gap: 12px; 
 }
 
-.user-info p {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-grey);
+.review-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #8B0000, #a52a2a);
+  border: 2px solid #d4af37;
+  flex-shrink: 0;
 }
 
-.rating {
-  margin-left: auto;
-  color: var(--gold);
-  font-size: 16px;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+.review-user-meta { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 2px; 
 }
 
-.post-photo {
-  background: linear-gradient(135deg, var(--dark), var(--dark-light));
-  height: 220px;
-  border-radius: 15px;
-  margin: 20px 0;
+.review-name { 
+  font-weight: 700; 
+  color: #f5f5f5; 
+}
+
+.review-badge {
+  font-size: 0.8rem;
+  margin-left: 6px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: rgba(139, 0, 0, 0.2);
+  color: #d4af37;
+  border: 1px solid #d4af37;
+}
+
+.review-sub { 
+  font-size: 0.9rem; 
+  color: #9ca3af; 
+}
+
+.review-rating { 
+  font-size: 1.1rem; 
+  letter-spacing: 1px; 
+  color: #d4af37; 
+}
+
+/* Body */
+.review-body {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 16px;
+  align-items: start;
+  margin-top: 6px;
+}
+
+@media (max-width: 860px) {
+  .review-body { grid-template-columns: 1fr; }
+}
+
+.review-photo {
+  background: #1a1a1a;
+  border: 2px dashed #8B0000;
+  border-radius: 12px;
+  min-height: 160px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-grey);
-  border: 2px dashed var(--burgundy);
-  font-size: 18px;
 }
 
-.post-tags {
-  margin: 15px 0;
+.review-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
-.post-tags button {
-  background: var(--dark);
-  border: 1px solid var(--burgundy);
-  color: var(--text-light);
-  padding: 6px 12px;
+.photo-placeholder { 
+  opacity: 0.6; 
+  font-size: 0.95rem; 
+  color: #9ca3af; 
+}
+
+.review-text {
+  font-size: 0.98rem;
+  color: #d1d5db;
+  line-height: 1.55rem;
+}
+
+/* Footer */
+.review-footer {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.review-chips { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 8px; 
+}
+
+.chip {
+  font-size: 0.85rem;
+  padding: 6px 10px;
   border-radius: 20px;
-  font-size: 12px;
-  margin-right: 10px;
-  margin-bottom: 8px;
-  cursor: pointer;
+  background: rgba(139, 0, 0, 0.2);
+  color: #d4af37;
+  border: 1px solid #8B0000;
   transition: all 0.3s ease;
 }
 
-.post-tags button:hover {
-  background: var(--burgundy);
-  border-color: var(--gold);
-  color: var(--gold);
-  transform: translateY(-2px);
+.chip:hover {
+  background: rgba(139, 0, 0, 0.4);
+  border-color: #d4af37;
 }
 
-.post-actions {
-  margin-top: 15px;
-  font-size: 14px;
-  color: var(--text-grey);
-  padding: 10px 0;
-  border-top: 1px solid var(--burgundy);
+.review-actions { 
+  display: flex; 
+  gap: 10px; 
+}
+
+.icon-btn {
+  border: 2px solid #8B0000;
+  background: #1a1a1a;
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #f5f5f5;
+  transition: all 0.3s ease;
+}
+
+.icon-btn:hover { 
+  background: rgba(139, 0, 0, 0.2);
+  border-color: #d4af37;
+}
+
+/* 하트 버튼 특별 스타일 */
+.icon-btn[title="like"] {
+  position: relative;
+  overflow: hidden;
+}
+
+.icon-btn[title="like"]:hover {
+  background: rgba(139, 0, 0, 0.3);
+  border-color: #d4af37;
+  transform: scale(1.05);
+}
+
+.icon-btn[title="like"]:active {
+  transform: scale(0.95);
+}
+
+/* 하트 클릭 애니메이션 */
+.icon-btn[title="like"].liked {
+  animation: heartBeat 0.6s ease-in-out;
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.2); }
+  50% { transform: scale(0.9); }
+  75% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* 댓글 버튼 특별 스타일 */
+.icon-btn[title="comment"]:hover {
+  background: rgba(139, 0, 0, 0.3);
+  border-color: #d4af37;
+  transform: scale(1.05);
+}
+
+.icon-btn[title="comment"]:active {
+  transform: scale(0.95);
 }
 
 /* 오른쪽 사이드바 */

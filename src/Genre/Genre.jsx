@@ -19,6 +19,8 @@ const SAMPLE_REVIEWS = [
     photos: [],
     content:
       'Visited a small local market near Jagalchi. Super friendly vendors and amazing street food! If you want the "real local" vibe, don\'t miss this place.',
+    likes: 0,
+    comments: 0,
   },
   {
     id: 'r2',
@@ -33,6 +35,8 @@ const SAMPLE_REVIEWS = [
     photos: [],
     content:
       '대학로 소극장에서 본 연극이 생각보다 훨씬 좋았어요. 좌석은 좁지만 배우들 연기가 훌륭. 관람 후 인근 카페거리 산책 추천!',
+    likes: 0,
+    comments: 0,
   },
   {
     id: 'r3',
@@ -47,13 +51,37 @@ const SAMPLE_REVIEWS = [
     photos: [],
     content:
       'Jeonju Hanok Village was beautiful. Try bibimbap at a small family-run spot off the main street. Less crowded and more authentic.',
+    likes: 0,
+    comments: 0,
   },
 ];
 
-function ReviewCard({ review }) {
+function ReviewCard({ review, onLikeClick, onCommentClick }) {
   const navigate = useNavigate();
-  const goDetail = () => navigate(`/content/${review.id}`);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isCommented, setIsCommented] = useState(false);
+  
+  const goDetail = () => navigate('/review', { state: { review } });
   const stars = '★★★★★'.slice(0, review.rating) + '☆☆☆☆☆'.slice(review.rating);
+  
+  const handleLikeClick = (e) => {
+    e.stopPropagation();
+    onLikeClick(review.id);
+    setIsLiked(true);
+    
+    // 애니메이션 후 상태 리셋
+    setTimeout(() => setIsLiked(false), 600);
+  };
+  
+  const handleCommentClick = (e) => {
+    e.stopPropagation();
+    onCommentClick(review.id);
+    setIsCommented(true);
+    
+    // 애니메이션 후 상태 리셋
+    setTimeout(() => setIsCommented(false), 600);
+  };
+  
   return (
     <article
       className="review-card"
@@ -98,8 +126,22 @@ function ReviewCard({ review }) {
           ))}
         </div>
         <div className="review-actions" role="group" aria-label="review actions">
-          <button className="icon-btn" title="like">♥ 0</button>
-          <button className="icon-btn" title="comment">💬 0</button>
+          <button 
+            className={`icon-btn ${isLiked ? 'liked' : ''}`}
+            title="like" 
+            onClick={handleLikeClick}
+            aria-label={`Like this review (${review.likes} likes)`}
+          >
+            ♥ {review.likes}
+          </button>
+          <button 
+            className="icon-btn" 
+            title="comment" 
+            onClick={handleCommentClick}
+            aria-label={`Comment on this review (${review.comments} comments)`}
+          >
+            💬 {review.comments}
+          </button>
           <button className="icon-btn" title="share">🔗 공유</button>
         </div>
       </footer>
@@ -134,6 +176,9 @@ const Genre = () => {
   const category = searchParams.get('category'); // URL에서 장르
 
   const [current, setCurrent] = useState(0);
+  
+  // 리뷰 상태 관리
+  const [reviews, setReviews] = useState(SAMPLE_REVIEWS);
 
   // === 필터 상태 (요청대로 4종) =========================
   const [filters, setFilters] = useState({
@@ -243,7 +288,29 @@ const Genre = () => {
   };
 
   // 리뷰는 언어 필터만 가볍게 연동 (그 외는 기존 그대로)
-  const filteredReviews = SAMPLE_REVIEWS;
+  const filteredReviews = reviews;
+  
+  // 하트 클릭 핸들러
+  const handleLikeClick = (reviewId) => {
+    setReviews(prevReviews => 
+      prevReviews.map(review => 
+        review.id === reviewId 
+          ? { ...review, likes: review.likes + 1 }
+          : review
+      )
+    );
+  };
+  
+  // 댓글 클릭 핸들러
+  const handleCommentClick = (reviewId) => {
+    setReviews(prevReviews => 
+      prevReviews.map(review => 
+        review.id === reviewId 
+          ? { ...review, comments: review.comments + 1 }
+          : review
+      )
+    );
+  };
 
   return (
     <div className="genre-container">
@@ -381,7 +448,12 @@ const Genre = () => {
 
   <div className="review-list">
     {filteredReviews.map((r) => (
-      <ReviewCard key={r.id} review={r} />
+      <ReviewCard 
+        key={r.id} 
+        review={r} 
+        onLikeClick={handleLikeClick}
+        onCommentClick={handleCommentClick}
+      />
     ))}
   </div>
 </section>
