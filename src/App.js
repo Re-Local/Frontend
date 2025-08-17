@@ -8,6 +8,10 @@ import Main from './MainPage/Main';
 import Login from './Login/Login'; 
 import Signup from './Signup/Signup';
 import ContentDetail from "./ContentDetail/ContentDetail";
+import MyTest from './components/MyTest';
+import TestResults from './components/TestResults';
+import TestDatabase from './components/TestDatabase';
+import AITranslation from './components/AITranslation';
 
 
 
@@ -46,7 +50,23 @@ const router = createBrowserRouter([
   },
   {
     path: "/content/:id", element: <ContentDetail />
-  }
+  },
+  {
+    path: "/test/my-test",
+    element: <MyTest />
+  },
+                  {
+          path: "/test/results",
+          element: <TestResults />
+        },
+        {
+          path: "/test/database",
+          element: <TestDatabase />
+        },
+        {
+          path: "/ai-translation",
+          element: <AITranslation />
+        }
   
 
 ]);

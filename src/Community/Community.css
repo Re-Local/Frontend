@@ -55,6 +55,7 @@ body {
   color: var(--text-light);
   position: relative;
   overflow-x: hidden;
+  padding: 20px;
 }
 
 /* 커튼 배경 효과 */
@@ -99,11 +100,10 @@ body {
   50% { transform: skewX(-15deg) translateX(20px); }
 }
 
-/* 커뮤니티 페이지 레이아웃 */
+/* 커뮤니티 페이지 레이아웃 - 다른 페이지들과 동일하게 */
 .community-page {
-  max-width: 1200px;
-  margin: auto;
-  padding: 30px 20px;
+  max-width: none;
+  margin: 0;
   position: relative;
   z-index: 1;
 }
@@ -113,7 +113,7 @@ body {
   color: var(--gold);
   font-size: 2rem;
   text-align: center;
-  margin-bottom: 30px;
+  margin: 20px 0 30px 0;
   text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
   position: relative;
 }
@@ -213,6 +213,9 @@ body {
   box-shadow: var(--shadow-dark);
   position: relative;
   overflow: hidden;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .upload-box::before {
@@ -324,6 +327,8 @@ body {
 .community-main {
   display: flex;
   gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* 왼쪽 피드 */
@@ -365,6 +370,13 @@ body {
   align-items: center;
   gap: 15px;
   margin-bottom: 15px;
+}
+
+.user-info strong {
+  color: var(--text-light);
+  font-size: 16px;
+  display: block;
+  margin-bottom: 5px;
 }
 
 .user-info p {
