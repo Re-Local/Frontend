@@ -1,7 +1,7 @@
-// Signup.jsx (타입 주석 제거 버전)
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Topnav from '../components/Topnav';
 import './Signup.css';
 
 const COUNTRIES = ['Korea','USA','Japan','China','Germany','France','Canada','UK','Spain','Australia'];
@@ -92,131 +92,159 @@ export default function Signup() {
   };
 
   return (
-    <div className="signup-wrap">
-      <h2>회원가입</h2>
-
-      <form className="signup-form" onSubmit={onSubmit}>
-        {errMsg && (
-          <div style={{ color: '#b91c1c', marginBottom: 8, fontSize: 14 }}>
-            {errMsg}
-          </div>
-        )}
-
-        {/* 이름 */}
-        <label>
-          이름
-          <input
-            type="text"
-            placeholder="이름을 입력하세요"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
-
-        {/* 아이디 */}
-        <label>
-          아이디
-          <input
-            type="text"
-            placeholder="아이디를 입력하세요"
-            value={userid}
-            onChange={(e) => setUserid(e.target.value)}
-            autoComplete="username"
-          />
-        </label>
-
-        {/* 비밀번호 */}
-        <label>
-          비밀번호
-          <input
-            type="password"
-            placeholder="비밀번호를 입력하세요"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            autoComplete="new-password"
-          />
-        </label>
-
-        {/* 성별: 0/1 */}
-        <label>
-          성별 (남자: 0, 여자: 1)
-          <input
-            type="number"
-            placeholder="예: 0 또는 1"
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-            min="0"
-            max="1"
-          />
-        </label>
-
-        {/* 국가 토글 */}
-        <div className="field">
-          <span className="field-label">국가</span>
-          <div className="toggle-group">
-            {COUNTRIES.map((c) => (
-              <button
-                type="button"
-                key={c}
-                className={`toggle ${country === c ? 'active' : ''}`}
-                onClick={() => setCountry(c)}
-              >
-                {c}
-              </button>
-            ))}
-          </div>
+    <div className="signup-container">
+      <Topnav />
+      
+      <div className="signup-form-container">
+        <div className="signup-header">
+          <h1 className="signup-title">회원가입</h1>
+          <p className="signup-subtitle">KurtainCall 계정을 만들어보세요</p>
         </div>
 
-        {/* 언어 토글 */}
-        <div className="field">
-          <span className="field-label">언어</span>
-          <div className="toggle-group">
-            {LANGUAGES.map((l) => (
-              <button
-                type="button"
-                key={l}
-                className={`toggle ${language === l ? 'active' : ''}`}
-                onClick={() => setLanguage(l)}
-              >
-                {l}
-              </button>
-            ))}
+        <form className="signup-form" onSubmit={onSubmit}>
+          {errMsg && (
+            <div className="error-message">
+              {errMsg}
+            </div>
+          )}
+
+          {/* 이름 */}
+          <div className="form-group">
+            <label htmlFor="name" className="form-label">이름</label>
+            <input
+              id="name"
+              type="text"
+              className="form-input"
+              placeholder="이름을 입력하세요"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
-        </div>
 
-        {/* 나이 */}
-        <label>
-          나이
-          <input
-            type="number"
-            placeholder="예: 23"
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-            min="0"
-          />
-        </label>
-
-        {/* 관심 태그(다중선택) */}
-        <div className="field">
-          <span className="field-label">관심 태그 (복수 선택)</span>
-          <div className="chip-group">
-            {TAGS.map(tag => (
-              <button
-                type="button"
-                key={tag}
-                className={`chip ${selectedTags.includes(tag) ? 'selected' : ''}`}
-                onClick={() => toggleTag(tag)}
-              >
-                {tag}
-              </button>
-            ))}
+          {/* 아이디 */}
+          <div className="form-group">
+            <label htmlFor="userid" className="form-label">아이디</label>
+            <input
+              id="userid"
+              type="text"
+              className="form-input"
+              placeholder="아이디를 입력하세요"
+              value={userid}
+              onChange={(e) => setUserid(e.target.value)}
+              autoComplete="username"
+            />
           </div>
-        </div>
 
-        <button className="submit" type="submit" disabled={!canSubmit}>
-          {loading ? '처리 중…' : '회원가입'}
-        </button>
-      </form>
+          {/* 비밀번호 */}
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">비밀번호</label>
+            <input
+              id="password"
+              type="password"
+              className="form-input"
+              placeholder="비밀번호를 입력하세요"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="new-password"
+            />
+          </div>
+
+          {/* 성별: 0/1 */}
+          <div className="form-group">
+            <label htmlFor="gender" className="form-label">성별 (남자: 0, 여자: 1)</label>
+            <input
+              id="gender"
+              type="number"
+              className="form-input"
+              placeholder="예: 0 또는 1"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+              min="0"
+              max="1"
+            />
+          </div>
+
+          {/* 국가 토글 */}
+          <div className="form-group">
+            <span className="form-label">국가</span>
+            <div className="toggle-group">
+              {COUNTRIES.map((c) => (
+                <button
+                  type="button"
+                  key={c}
+                  className={`toggle ${country === c ? 'active' : ''}`}
+                  onClick={() => setCountry(c)}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 언어 토글 */}
+          <div className="form-group">
+            <span className="form-label">언어</span>
+            <div className="toggle-group">
+              {LANGUAGES.map((l) => (
+                <button
+                  type="button"
+                  key={l}
+                  className={`toggle ${language === l ? 'active' : ''}`}
+                  onClick={() => setLanguage(l)}
+                >
+                  {l}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 나이 */}
+          <div className="form-group">
+            <label htmlFor="age" className="form-label">나이</label>
+            <input
+              id="age"
+              type="number"
+              className="form-input"
+              placeholder="예: 23"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              min="0"
+            />
+          </div>
+
+          {/* 관심 태그(다중선택) */}
+          <div className="form-group">
+            <span className="form-label">관심 태그 (복수 선택)</span>
+            <div className="chip-group">
+              {TAGS.map(tag => (
+                <button
+                  type="button"
+                  key={tag}
+                  className={`chip ${selectedTags.includes(tag) ? 'selected' : ''}`}
+                  onClick={() => toggleTag(tag)}
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <button className="signup-btn" type="submit" disabled={!canSubmit}>
+            {loading ? '처리 중…' : '회원가입'}
+          </button>
+        </form>
+        
+        <div className="login-link">
+          <p className="login-text">이미 계정이 있으신가요?</p>
+          <button 
+            type="button" 
+            className="login-btn"
+            onClick={() => navigate('/login')}
+          >
+            로그인
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

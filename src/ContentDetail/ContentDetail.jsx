@@ -7,9 +7,9 @@ export default function ContentDetail() {
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1>能刨明 惑技 其捞瘤</h1>
-      <p>能刨明 ID: {id}</p>
-      {/* 咯扁俊 惑技 沥焊 坊歹傅 */}
+      <h1>脛脺墓女膫梅 钮贸藕藕 膯盲艛臍脕枚</h1>
+      <p>脛脺墓女膫梅 ID: {id}</p>
+      {/* 偶艩膮芒偶膭 钮贸藕藕 脕陇艧赂 藝钮麓艖赂木 */}
     </div>
   );
 }

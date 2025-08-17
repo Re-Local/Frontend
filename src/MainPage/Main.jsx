@@ -3,19 +3,19 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Topnav from "../components/Topnav";
 import posters from "./postersData.js";
-import SearchModal from "./SearchModal.jsx";
-import EventCalendar from "./EventCalendar"; // ✅ 분리한 캘린더
-import EventPanel from "./EventPanel";       // ✅ 분리한 우측 패널
+import SearchModal from "../components/SearchModal";
+import EventCalendar from "./EventCalendar.jsx"; // ✅ 분리한 캘린더
+import EventPanel from "./EventPanel.jsx";       // ✅ 분리한 우측 패널
 import "./Main.css";
 
 // 카테고리 버튼 데이터
 const CATS = [
-  { label: "소극장 뮤지컬", slug: "musical" },
-  { label: "코미디극", slug: "comedy" },
-  { label: "실험 퍼포먼스", slug: "performance" },
-  { label: "전통극", slug: "traditional" },
-  { label: "드라마극", slug: "drama" },
-  { label: "클래식·무용 공연", slug: "classic-dance" },
+  { label: "Musical", slug: "musical" },
+  { label: "Comedy", slug: "comedy" },
+  { label: "Performance", slug: "performance" },
+  { label: "Traditional", slug: "traditional" },
+  { label: "Drama", slug: "drama" },
+  { label: "Classic & Dance", slug: "classic-dance" },
 ];
 
 /* ===== 임시 이벤트 데이터(추후 API로 교체 가능) ===== */
@@ -48,17 +48,24 @@ function Hero() {
 
   return (
     <header className="hero">
-      <h1>추천 만한 메인 이벤트</h1>
+      <h1>Main Event</h1>
       <p>Live Local. Explore Korea.</p>
 
-      {/* 한 장만 표시 */}
-      <div className="poster-carousel" style={{ justifyContent: "center" }}>
-        <div className="poster-card" style={{ maxWidth: 360, width: "100%" }}>
-          <img src={current.image} alt={current.title} className="poster-img" />
-          <div className="poster-title">{current.title}</div>
-          <div className="poster-info">{current.category}</div>
-        </div>
-      </div>
+             {/* 한 장만 표시 */}
+       <div className="poster-carousel" style={{ justifyContent: "center" }}>
+         <div className="poster-card" style={{ maxWidth: 360, width: "100%" }}>
+           <a 
+             href="https://www.interpark.com" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             className="poster-link"
+           >
+             <img src={current.image} alt={current.title} className="poster-img" />
+           </a>
+           <div className="poster-title">{current.title}</div>
+           <div className="poster-info">{current.category}</div>
+         </div>
+       </div>
 
       {/* 좌우 버튼 + 인디케이터 유지 */}
       <div className="slide-indicator">
@@ -119,6 +126,10 @@ export default function Main() {
 
   return (
     <div className="main-page">
+      {/* 커튼 배경 요소들 */}
+      <div className="top-curtain"></div>
+      <div className="curtain-decoration"></div>
+      
       <Topnav onSearchClick={() => setIsSearchOpen(true)} />
       {isSearchOpen && <SearchModal onClose={() => setIsSearchOpen(false)} />}
 

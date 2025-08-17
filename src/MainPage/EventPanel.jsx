@@ -1,5 +1,5 @@
 import React from "react";
-import "./Main.css"; // °°Àº ÆÈ·¹Æ® »ç¿ë
+import "./Main.css"; // ê°™ì€ íŒ”ë ˆíŠ¸ ì‚¬ìš©
 
 export default function EventPanel({ date, events }) {
   const key = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
@@ -16,12 +16,12 @@ export default function EventPanel({ date, events }) {
 
       <ul className="event-list">
         {events.length === 0 && (
-          <li className="event-empty">ÇØ´ç ³¯Â¥ÀÇ ÀÌº¥Æ®°¡ ¾ø½À´Ï´Ù.</li>
+          <li className="event-empty">í•´ë‹¹ ë‚ ì§œì˜ ì´ë²¤íŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤.</li>
         )}
         {events.map((e) => (
           <li key={e.id} className="event-item">
             <div className="event-left">
-              <span className="event-bullet">¡ß</span>
+              <span className="event-bullet">â—†</span>
               <span className="event-title">{e.title}</span>
             </div>
             <div className="event-range">{e.start} ~ {e.end}</div>

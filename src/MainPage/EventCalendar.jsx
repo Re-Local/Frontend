@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Main.css"; // ½ºÅ¸ÀÏÀº ±âÁ¸ °ÍÀ» ¾¹´Ï´Ù.
+import "./Main.css"; // ìŠ¤íƒ€ì¼ì€ ê¸°ì¡´ ê²ƒì„ ì”ë‹ˆë‹¤.
 
 const fmt = (d) =>
   `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
@@ -28,9 +28,17 @@ export default function EventCalendar({ selected, onSelect, markers = new Set() 
   return (
     <section className="cal cal-compact">
       <div className="cal-head">
-        <button type="button" onClick={() => goto(-1)}>?</button>
+        <button type="button" onClick={() => goto(-1)} aria-label="Previous month">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+          </svg>
+        </button>
         <h3>{y}.{String(m + 1).padStart(2, "0")}</h3>
-        <button type="button" onClick={() => goto(1)}>?</button>
+        <button type="button" onClick={() => goto(1)} aria-label="Next month">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+          </svg>
+        </button>
       </div>
 
       <div className="cal-grid">
@@ -54,7 +62,7 @@ export default function EventCalendar({ selected, onSelect, markers = new Set() 
               >
                 {d}
               </button>
-              {hasEvent && <span className="cal-dot" aria-hidden="true">¡ß</span>}
+              {hasEvent && <span className="cal-dot" aria-hidden="true">â—†</span>}
             </div>
           );
         })}
