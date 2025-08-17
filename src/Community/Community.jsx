@@ -1,18 +1,26 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Topnav from '../components/Topnav';
 import SearchModal from '../components/SearchModal';
 import './Community.css';
 
 const Community = () => {
+  const navigate = useNavigate();
   const [posts, setPosts] = useState([
     {
       id: 1,
-      name: "Sarah Kim 🇯🇵",
+      userName: "Sarah Kim",
+      userBadge: "JP",
       area: "Busan",
-      tags: ["📍 Location", "🍲 Local", "🎟️ Recommend"],
-      rating: "★★★★★",
-      content: "사진 영역",
-      text: "Area: Busan | Activities: Market, Food, Local"
+      activities: ["Market", "Food", "Local"],
+      tags: ["Location", "Local", "Recommend"],
+      rating: 5,
+      lang: "en",
+      date: "2025-08-10",
+      photos: [],
+      content: "Visited a small local market near Jagalchi. Super friendly vendors and amazing street food! If you want the 'real local' vibe, don't miss this place.",
+      likes: 0,
+      comments: 0
     }
   ]);
 
@@ -24,13 +32,18 @@ const Community = () => {
 
     const newPostData = {
       id: posts.length + 1,
-      name: "You 🌸",
+      userName: "You",
+      userBadge: "KR",
       area: "Seoul",
-      tags: ["📍 Location", "🎨 Culture"],
-      rating: "★★★★",
-      content: "사진 영역",
-      text: "Area: Seoul | Activities: Culture, Food",
-      description: newPost.trim()
+      activities: ["Culture", "Food"],
+      tags: ["Location", "Culture"],
+      rating: 4,
+      lang: "ko",
+      date: new Date().toISOString().split('T')[0],
+      photos: [],
+      content: newPost.trim(),
+      likes: 0,
+      comments: 0
     };
 
     setPosts([newPostData, ...posts]);
@@ -78,28 +91,57 @@ const Community = () => {
         {/* 왼쪽 피드 */}
         <section className="feed-left">
           {posts.map(post => (
-            <div className="post-card" key={post.id}>
-              <div className="post-user">
-                <img src="/profile.png" alt={post.name} className="profile-pic" />
-                <div className="user-info">
-                  <strong>{post.name}</strong>
-                  <p>{post.text}</p>
+            <article 
+              className="review-card" 
+              key={post.id}
+              onClick={() => navigate('/review', { state: { review: post } })}
+              style={{ cursor: 'pointer' }}
+            >
+              <header className="review-header">
+                <div className="review-user">
+                  <div className="review-avatar" aria-hidden />
+                  <div className="review-user-meta">
+                    <div className="review-name">
+                      {post.userName} <span className="review-badge">{post.userBadge}</span>
+                    </div>
+                    <div className="review-sub">
+                      Area: {post.area} | Activities: {post.activities.join(', ')}
+                    </div>
+                  </div>
                 </div>
-                <span className="rating">{post.rating}</span>
+                <div className="review-rating" aria-label={`${post.rating} out of 5`}>
+                  {'★★★★★'.slice(0, post.rating) + '☆☆☆☆☆'.slice(post.rating)}
+                </div>
+              </header>
+
+              <div className="review-body">
+                <div className="review-photo">
+                  {post.photos?.length ? (
+                    <img src={post.photos[0]} alt="review" />
+                  ) : (
+                    <div className="photo-placeholder">🖼 사진 영역</div>
+                  )}
+                </div>
+                <p className="review-text">{post.content}</p>
               </div>
-              <div className="post-photo">📷 {post.content}</div>
-              {post.description && (
-                <p style={{ marginTop: "10px", color: "#444" }}>{post.description}</p>
-              )}
-              <div className="post-tags">
-                {post.tags.map((tag, idx) => (
-                  <button key={idx}>{tag}</button>
-                ))}
-              </div>
-              <div className="post-actions">
-                ❤️ 0 | 💬 0 | 🔗 공유
-              </div>
-            </div>
+
+              <footer className="review-footer">
+                <div className="review-chips">
+                  {post.tags.map((tag, idx) => (
+                    <span key={idx} className="chip">{tag}</span>
+                  ))}
+                </div>
+                <div className="review-actions" role="group" aria-label="review actions">
+                  <button className="icon-btn" title="like">
+                    ♥ {post.likes}
+                  </button>
+                  <button className="icon-btn" title="comment">
+                    💬 {post.comments}
+                  </button>
+                  <button className="icon-btn" title="share">🔗 공유</button>
+                </div>
+              </footer>
+            </article>
           ))}
         </section>
 

@@ -12,6 +12,7 @@ import MyTest from './components/MyTest';
 import TestResults from './components/TestResults';
 import TestDatabase from './components/TestDatabase';
 import AITranslation from './components/AITranslation';
+import Review from './components/Review';
 
 
 
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
         {
           path: "/ai-translation",
           element: <AITranslation />
+        },
+        {
+          path: "/review",
+          element: <Review />
         }
   
 
