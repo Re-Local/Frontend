@@ -1,17 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Topnav from '../components/Topnav';
-<<<<<<< Updated upstream
-import './Foodmap.css';
-
-=======
-import './foodmap.css';
+import './Map.css'
 import axios from 'axios';
->>>>>>> Stashed changes
 // @ts-ignore
 import { feature } from 'topojson-client';
 
-const Foodmap = () => {
+const Map = () => {
   const navigate = useNavigate();
   const mapRef = useRef(null);
 
@@ -520,4 +515,4 @@ const Foodmap = () => {
   );
 };
 
-export default Foodmap;
+export default Map;
