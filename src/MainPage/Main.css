@@ -696,6 +696,19 @@
   padding-left: 12px;
 }
 
+.event-item.clickable {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.event-item.clickable:hover {
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 8px;
+  padding-left: 12px;
+  transform: translateX(5px);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+}
+
 .event-item:first-child { 
   border-top: none; 
 }
@@ -715,12 +728,12 @@
 .event-title { 
   font-weight: 600; 
   color: #f5f5f5; 
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .event-range { 
   color: #c5a572; 
-  font-size: 0.9rem; 
+  font-size: 0.8rem; 
   font-weight: 500;
 }
 

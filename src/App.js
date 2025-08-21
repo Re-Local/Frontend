@@ -13,6 +13,7 @@ import TestResults from './components/TestResults';
 import TestDatabase from './components/TestDatabase';
 import AITranslation from './components/AITranslation';
 import Review from './components/Review';
+import EventDetail from './components/EventDetail';
 
 
 
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
         {
           path: "/review",
           element: <Review />
+        },
+        {
+          path: "/event/:id",
+          element: <EventDetail />
         }
   
 
