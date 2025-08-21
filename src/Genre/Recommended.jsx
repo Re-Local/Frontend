@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import './Recommended.css'; 
 import Topnav from '../components/Topnav';
+import axios from 'axios';
 
 const Recommended = () => {
   const location = useLocation();
@@ -10,9 +11,11 @@ const Recommended = () => {
   // 달력 상태 관리 - Hooks는 항상 최상위 레벨에서 호출되어야 함
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
   // 옵션 섹션으로 스크롤하기 위한 ref
   const dateOptionsRef = useRef(null);
+  const [movieData, setMovieData] = useState(null);
 
   // 날짜가 선택되면 옵션 섹션으로 자동 스크롤
   useEffect(() => {
@@ -24,6 +27,37 @@ const Recommended = () => {
       });
     }
   }, [selectedDate]);
+
+  useEffect(() => {
+    axios.get('https://re-local.onrender.com/api/movies')
+      .then(res => {
+        setMovies(res.data.items); // items 배열 저장
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    const fetchMovie = async () => {
+      try {
+        const response = await axios.get('https://re-local.onrender.com/api/movies');
+        const items = response.data.items || [];
+        // 선택된 포스터의 title과 일치하는 항목 찾기
+        const matched = items.find(item => item.title === selectedPoster?.title);
+        setMovieData(matched || null);
+      } catch (error) {
+        console.error('영화 데이터 로드 실패:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchMovie();
+  }, [selectedPoster]);
+  
 
   // 현재 월의 날짜들 생성
   const getDaysInMonth = (date) => {
@@ -106,6 +140,8 @@ const Recommended = () => {
   const days = getDaysInMonth(currentMonth);
   const dateOptions = getDateOptions(selectedDate);
 
+  if (loading) return <div>Loading...</div>;
+  if(!movieData) return <div>No more movie data...</div>;
   return (
     <div className="genre-container">
       <Topnav />
@@ -128,22 +164,22 @@ const Recommended = () => {
             <div className="info-grid">
               <div className="info-item">
                 <span className="info-label">📍 Venue</span>
-                <span className="info-value">{selectedPoster.location || 'Venue information not available'}</span>
+                <span className="info-value">{movieData.location || '정보없음'}</span>
               </div>
               
               <div className="info-item">
                 <span className="info-label">📅 Performance Period</span>
-                <span className="info-value">2025.07.01 ~ 2025.07.31</span>
+                <span className="info-value">{movieData.start_date} ~ {movieData.end_date}</span>
               </div>
               
               <div className="info-item">
                 <span className="info-label">⏰ Duration</span>
-                <span className="info-value">90 minutes</span>
+                <span className="info-value">{movieData.duration ? `${movieData.duration} min` : '정보 없음'}</span>
               </div>
               
               <div className="info-item">
                 <span className="info-label">💰 Price</span>
-                <span className="info-value">50,000 KRW ~ 60,000 KRW</span>
+                <span className="info-value">{movieData.price ? `${movieData.price} KRW` : '정보 없음'}</span>
               </div>
             </div>
           </div>
