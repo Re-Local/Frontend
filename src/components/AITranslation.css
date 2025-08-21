@@ -90,28 +90,28 @@
   min-height: 70vh;
 }
 
-/* 코알라 캐릭터 */
-.koala-character {
+/* 마스코트 캐릭터 */
+.mascot-character {
   margin-bottom: 20px;
 }
 
-.koala-avatar {
+.mascot-avatar {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
 }
 
-.koala-face {
+.mascot-face {
   width: 80px;
   height: 80px;
-  background: #8B7355;
+  background: #FFB6C1;
   border-radius: 50%;
   position: relative;
   margin: 0 auto;
-  border: 3px solid #654321;
+  border: 3px solid #FF69B4;
 }
 
-.koala-eyes {
+.mascot-eyes {
   position: absolute;
   top: 25px;
   left: 50%;
@@ -139,76 +139,105 @@
   border-radius: 50%;
 }
 
-.koala-nose {
+.mascot-nose {
   position: absolute;
   top: 45px;
   left: 50%;
   transform: translateX(-50%);
   width: 8px;
   height: 6px;
-  background: #000;
+  background: #FF69B4;
   border-radius: 50%;
 }
 
-.koala-blush {
+.mascot-smile {
   position: absolute;
-  top: 35px;
-  width: 15px;
-  height: 8px;
-  background: #FFB6C1;
-  border-radius: 50%;
+  top: 55px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 10px;
+  border: 2px solid #FF69B4;
+  border-top: none;
+  border-radius: 0 0 20px 20px;
 }
 
-.left-blush {
-  left: 15px;
-}
-
-.right-blush {
-  right: 15px;
-}
-
-.koala-body {
+.mascot-body {
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 100px;
-  height: 60px;
-  background: #8B7355;
+  width: 120px;
+  height: 80px;
+  background: #87CEEB;
   border-radius: 50px 50px 25px 25px;
-  border: 3px solid #654321;
+  border: 3px solid #4682B4;
 }
 
-.koala-pajamas {
+.mascot-shirt {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 40px;
-  background: #90EE90;
+  height: 50px;
+  background: #98FB98;
   border-radius: 0 0 25px 25px;
-  border-top: 2px solid #228B22;
+  border-top: 2px solid #32CD32;
 }
 
-.koala-arm {
+.mascot-arms {
   position: absolute;
-  top: 15px;
-  width: 25px;
-  height: 35px;
-  background: #8B7355;
+  top: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mascot-arm {
+  width: 30px;
+  height: 40px;
+  background: #FFB6C1;
   border-radius: 15px;
-  border: 2px solid #654321;
+  border: 2px solid #FF69B4;
+  position: relative;
 }
 
-.waving-arm {
-  right: -15px;
-  transform: rotate(-20deg);
-  animation: wave 2s ease-in-out infinite;
+.left-arm {
+  transform: rotate(-30deg);
+  margin-left: -15px;
 }
 
-@keyframes wave {
-  0%, 100% { transform: rotate(-20deg); }
-  50% { transform: rotate(-40deg); }
+.right-arm {
+  transform: rotate(30deg);
+  margin-right: -15px;
+}
+
+.microphone-holder, .speaker-holder {
+  position: absolute;
+  top: -15px;
+  width: 40px;
+  height: 40px;
+  background: #FFD700;
+  border-radius: 50%;
+  border: 3px solid #FFA500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.microphone-holder {
+  left: -5px;
+}
+
+.speaker-holder {
+  right: -5px;
+}
+
+.microphone-icon, .speaker-icon {
+  font-size: 1.2rem;
+  color: #8B0000;
 }
 
 /* 환영 메시지 */
@@ -382,6 +411,71 @@
   animation: pulse 1.5s ease-in-out infinite;
 }
 
+/* 음성 출력 섹션 */
+.voice-output-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(139, 0, 0, 0.3);
+}
+
+.voice-output-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  border: 3px solid #90EE90;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px auto;
+}
+
+.voice-output-btn:hover:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
+}
+
+.voice-output-btn.speaking {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  border-color: #FFD700;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.voice-output-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.speaker-icon {
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+.voice-output-btn.speaking .speaker-icon {
+  color: #8B0000;
+}
+
+.speaking-indicator {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 18px;
+  height: 18px;
+  background: #FFD700;
+  border-radius: 50%;
+  animation: blink 1s ease-in-out infinite;
+}
+
+.output-hint {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 768px) {
   .ai-translation-title {
@@ -392,12 +486,12 @@
     font-size: 1.5rem;
   }
   
-  .koala-avatar {
-    width: 100px;
-    height: 100px;
+  .mascot-avatar {
+    width: 120px;
+    height: 120px;
   }
   
-  .koala-face {
+  .mascot-face {
     width: 70px;
     height: 70px;
   }
@@ -405,6 +499,11 @@
   .voice-input-btn {
     width: 70px;
     height: 70px;
+  }
+  
+  .voice-output-btn {
+    width: 55px;
+    height: 55px;
   }
 }
 
@@ -421,12 +520,12 @@
     font-size: 1.3rem;
   }
   
-  .koala-avatar {
-    width: 80px;
-    height: 80px;
+  .mascot-avatar {
+    width: 100px;
+    height: 100px;
   }
   
-  .koala-face {
+  .mascot-face {
     width: 60px;
     height: 60px;
   }
@@ -436,7 +535,16 @@
     height: 60px;
   }
   
+  .voice-output-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
   .microphone-icon {
     font-size: 1.5rem;
+  }
+  
+  .speaker-icon {
+    font-size: 1.2rem;
   }
 }

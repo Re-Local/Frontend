@@ -7,6 +7,7 @@ const AITranslation = () => {
   const [isListening, setIsListening] = useState(false);
   const [translationResult, setTranslationResult] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   const handleVoiceInput = () => {
     if (!isListening) {
@@ -40,6 +41,20 @@ const AITranslation = () => {
     }
   };
 
+  const handleVoiceOutput = () => {
+    if (translationResult && !isProcessing) {
+      setIsSpeaking(true);
+      
+      // 실제 TTS API를 여기에 연결할 수 있습니다
+      // 현재는 시뮬레이션으로 2초 후 완료
+      setTimeout(() => {
+        setIsSpeaking(false);
+        // 여기에 실제 음성 출력 로직 추가
+        console.log('음성 출력:', translationResult);
+      }, 2000);
+    }
+  };
+
   return (
     <div className="ai-translation-container">
       <Topnav />
@@ -51,21 +66,31 @@ const AITranslation = () => {
         </div>
 
         <div className="translation-main">
-          {/* 코알라 캐릭터 */}
-          <div className="koala-character">
-            <div className="koala-avatar">
-              <div className="koala-face">
-                <div className="koala-eyes">
+          {/* 마스코트 캐릭터 */}
+          <div className="mascot-character">
+            <div className="mascot-avatar">
+              <div className="mascot-face">
+                <div className="mascot-eyes">
                   <div className="eye left-eye"></div>
                   <div className="eye right-eye"></div>
                 </div>
-                <div className="koala-nose"></div>
-                <div className="koala-blush left-blush"></div>
-                <div className="koala-blush right-blush"></div>
+                <div className="mascot-nose"></div>
+                <div className="mascot-smile"></div>
               </div>
-              <div className="koala-body">
-                <div className="koala-pajamas"></div>
-                <div className="koala-arm waving-arm"></div>
+              <div className="mascot-body">
+                <div className="mascot-shirt"></div>
+                <div className="mascot-arms">
+                  <div className="mascot-arm left-arm">
+                    <div className="microphone-holder">
+                      <div className="microphone-icon">🎤</div>
+                    </div>
+                  </div>
+                  <div className="mascot-arm right-arm">
+                    <div className="speaker-holder">
+                      <div className="speaker-icon">🔊</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -73,6 +98,7 @@ const AITranslation = () => {
           {/* 환영 메시지 */}
           <div className="welcome-message">
             <h2 className="greeting">Hi, {userName}!</h2>
+            <p className="sub-greeting">마이크로 말하고, 스피커로 들어보세요!</p>
           </div>
 
           {/* 음성 입력 버튼 */}
