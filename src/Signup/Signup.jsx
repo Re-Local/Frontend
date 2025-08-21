@@ -4,6 +4,9 @@ import axios from 'axios';
 import Topnav from '../components/Topnav';
 import './Signup.css';
 
+// 백엔드 API URL 설정
+const API_BASE_URL = 'https://re-local.onrender.com';
+
 const COUNTRIES = ['Korea','USA','Japan','China','Germany','France','Canada','UK','Spain','Australia'];
 const LANGUAGES = ['Korean','English','Japanese','Chinese','German','French','Spanish','Portuguese','Russian','Arabic'];
 
@@ -67,25 +70,36 @@ export default function Signup() {
       country,
       language,
       age: parseInt(age, 10),
-      interestTag: selectedTags.join(', '),   // 서버엔 문자열로 전송
+      interestTag: selectedTags.map(tag => `#${tag}`).join(','),   // #tag1,#tag2 형태로 전송
     };
 
     try {
       setLoading(true);
       setErrMsg('');
-      const res = await axios.post('https://re-local.onrender.com/api/users/signup', payload, {
+      
+      // 백엔드로 회원가입 데이터 전송
+      const res = await axios.post(`${API_BASE_URL}/api/users/signup`, payload, {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: false,
       });
+      
       console.log('서버 응답:', res.data);
       alert('회원가입이 완료되었습니다!');
       navigate('/login');
     } catch (err) {
-      console.error(err);
-      setErrMsg(
-        err?.response?.data?.message ||
-        '회원가입 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'
-      );
+      console.error('회원가입 오류:', err);
+      
+      // 더 자세한 오류 메시지 표시
+      if (err.response) {
+        // 서버에서 응답이 왔지만 오류인 경우
+        setErrMsg(err.response.data?.message || `서버 오류: ${err.response.status}`);
+      } else if (err.request) {
+        // 서버에 요청이 전송되지 않은 경우 (연결 문제)
+        setErrMsg('서버에 연결할 수 없습니다. 백엔드가 실행 중인지 확인해주세요.');
+      } else {
+        // 기타 오류
+        setErrMsg('회원가입 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+      }
     } finally {
       setLoading(false);
     }

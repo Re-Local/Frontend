@@ -6,16 +6,24 @@ import posters from "./postersData.js";
 import SearchModal from "../components/SearchModal";
 import EventCalendar from "./EventCalendar.jsx"; // ✅ 분리한 캘린더
 import EventPanel from "./EventPanel.jsx";       // ✅ 분리한 우측 패널
+import { 
+  GiComedy, 
+  GiHeartWings, 
+  GiGhost, 
+  GiTragedyMask, 
+  GiSwordWound, 
+  GiMusicalNotes 
+} from "react-icons/gi";
 import "./Main.css";
 
 // 카테고리 버튼 데이터
 const CATS = [
-  { label: "Musical", slug: "musical" },
-  { label: "Comedy", slug: "comedy" },
-  { label: "Performance", slug: "performance" },
-  { label: "Traditional", slug: "traditional" },
-  { label: "Drama", slug: "drama" },
-  { label: "Classic & Dance", slug: "classic-dance" },
+  { label: "Comedy", slug: "comedy", icon: GiComedy },
+  { label: "Romance", slug: "romance", icon: GiHeartWings },
+  { label: "Horror", slug: "horror", icon: GiGhost },
+  { label: "Tragedy", slug: "tragedy", icon: GiTragedyMask },
+  { label: "Thriller", slug: "thriller", icon: GiSwordWound },
+  { label: "Musical", slug: "musical", icon: GiMusicalNotes },
 ];
 
 /* ===== 임시 이벤트 데이터(추후 API로 교체 가능) ===== */
@@ -82,12 +90,17 @@ function CategoryGrid({ onPick }) {
   return (
     <section className="section">
       <div className="cat-grid">
-        {CATS.map((c) => (
-          <button key={c.slug} className="cat" onClick={() => onPick(c.slug)}>
-            <div className="cat-box" />
-            <div className="cat-label">{c.label}</div>
-          </button>
-        ))}
+        {CATS.map((c) => {
+          const IconComponent = c.icon;
+          return (
+            <button key={c.slug} className="cat" onClick={() => onPick(c.slug)}>
+              <div className="cat-box">
+                <IconComponent className="cat-icon" />
+              </div>
+              <div className="cat-label">{c.label}</div>
+            </button>
+          );
+        })}
       </div>
     </section>
   );

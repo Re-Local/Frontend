@@ -2,6 +2,21 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## 환경 변수 설정
+
+프로젝트 루트 디렉토리에 `.env` 파일을 생성하고 다음 내용을 추가하세요:
+
+```bash
+# 백엔드 API URL 설정
+# 개발 환경에서는 로컬 백엔드 사용
+REACT_APP_API_URL=http://localhost:3001
+
+# 프로덕션 환경에서는 실제 서버 URL 사용
+# REACT_APP_API_URL=https://your-production-server.com
+```
+
+**주의**: 환경 변수는 `REACT_APP_` 접두사로 시작해야 합니다.
+
 ## Available Scripts
 
 In the project directory, you can run:
