@@ -225,6 +225,15 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  outline: none;
+}
+
+.microphone-holder:hover, .speaker-holder:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 .microphone-holder {
@@ -235,9 +244,51 @@
   right: -5px;
 }
 
+.microphone-holder.listening {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.speaker-holder.speaking {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.microphone-holder:disabled, .speaker-holder:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .microphone-icon, .speaker-icon {
   font-size: 1.2rem;
   color: #8B0000;
+  pointer-events: none;
+}
+
+.listening-indicator, .speaking-indicator {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 18px;
+  height: 18px;
+  background: #FF0000;
+  border-radius: 50%;
+  animation: blink 1s ease-in-out infinite;
+}
+
+.speaking-indicator {
+  background: #4CAF50;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
 /* 환영 메시지 */
@@ -259,107 +310,6 @@
   font-size: 1.2rem;
   margin: 0;
   font-weight: 500;
-}
-
-/* AI 응답 버블 */
-.ai-response-bubble {
-  background: rgba(139, 0, 0, 0.2);
-  border: 2px solid #8B0000;
-  border-radius: 25px;
-  padding: 20px 30px;
-  max-width: 400px;
-  text-align: center;
-  position: relative;
-  margin-bottom: 60px;
-}
-
-.ai-response-bubble::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid rgba(139, 0, 0, 0.2);
-}
-
-.ai-response-bubble p {
-  color: #e0e0e0;
-  font-size: 1.1rem;
-  margin: 0;
-  line-height: 1.4;
-}
-
-/* 음성 입력 섹션 */
-.voice-input-section {
-  text-align: center;
-  margin: 20px 0 40px 0;
-}
-
-.voice-input-btn {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #8B0000, #A52A2A);
-  border: 3px solid #FFD700;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 15px;
-}
-
-.voice-input-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
-}
-
-.voice-input-btn.listening {
-  background: linear-gradient(135deg, #FFD700, #FFA500);
-  border-color: #FFD700;
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-}
-
-.microphone-icon {
-  font-size: 2rem;
-  color: #FFD700;
-}
-
-.voice-input-btn.listening .microphone-icon {
-  color: #8B0000;
-}
-
-.listening-indicator {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  width: 20px;
-  height: 20px;
-  background: #FF0000;
-  border-radius: 50%;
-  animation: blink 1s ease-in-out infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-.voice-hint {
-  color: #9ca3af;
-  font-size: 0.95rem;
-  margin: 0;
-  line-height: 1.4;
 }
 
 /* 번역 결과 */
@@ -411,69 +361,20 @@
   animation: pulse 1.5s ease-in-out infinite;
 }
 
-/* 음성 출력 섹션 */
-.voice-output-section {
+/* 상태 표시 */
+.status-indicator {
   margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(139, 0, 0, 0.3);
+  padding: 15px;
+  background: rgba(139, 0, 0, 0.2);
+  border-radius: 15px;
+  border: 1px solid #8B0000;
 }
 
-.voice-output-btn {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #4CAF50, #45a049);
-  border: 3px solid #90EE90;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 15px auto;
-}
-
-.voice-output-btn:hover:not(:disabled) {
-  transform: scale(1.1);
-  box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
-}
-
-.voice-output-btn.speaking {
-  background: linear-gradient(135deg, #FFD700, #FFA500);
-  border-color: #FFD700;
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
-.voice-output-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.speaker-icon {
-  font-size: 1.5rem;
-  color: #ffffff;
-}
-
-.voice-output-btn.speaking .speaker-icon {
-  color: #8B0000;
-}
-
-.speaking-indicator {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  width: 18px;
-  height: 18px;
-  background: #FFD700;
-  border-radius: 50%;
-  animation: blink 1s ease-in-out infinite;
-}
-
-.output-hint {
-  color: #9ca3af;
-  font-size: 0.9rem;
+.status-text {
+  color: #FFD700;
+  font-size: 1rem;
   margin: 0;
-  line-height: 1.4;
+  font-weight: 500;
 }
 
 /* 반응형 디자인 */
@@ -494,16 +395,6 @@
   .mascot-face {
     width: 70px;
     height: 70px;
-  }
-  
-  .voice-input-btn {
-    width: 70px;
-    height: 70px;
-  }
-  
-  .voice-output-btn {
-    width: 55px;
-    height: 55px;
   }
 }
 
@@ -530,21 +421,7 @@
     height: 60px;
   }
   
-  .voice-input-btn {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .voice-output-btn {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .microphone-icon {
-    font-size: 1.5rem;
-  }
-  
-  .speaker-icon {
-    font-size: 1.2rem;
+  .microphone-icon, .speaker-icon {
+    font-size: 1rem;
   }
 }
