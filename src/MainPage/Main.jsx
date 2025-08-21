@@ -10,12 +10,12 @@ import "./Main.css";
 
 // 카테고리 버튼 데이터
 const CATS = [
-  { label: "Musical", slug: "musical" },
   { label: "Comedy", slug: "comedy" },
-  { label: "Performance", slug: "performance" },
-  { label: "Traditional", slug: "traditional" },
-  { label: "Drama", slug: "drama" },
-  { label: "Classic & Dance", slug: "classic-dance" },
+  { label: "Romance", slug: "romance" },
+  { label: "Horror", slug: "horror" },
+  { label: "Tragedy", slug: "tragedy" },
+  { label: "Thriller", slug: "thriller" },
+  { label: "Musical", slug: "musical" },
 ];
 
 /* ===== 임시 이벤트 데이터(추후 API로 교체 가능) ===== */
