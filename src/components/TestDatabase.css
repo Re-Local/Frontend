@@ -1,6 +1,5 @@
-/* TestDatabase ÆäÀÌÁö ÀüÃ¼ ÄÁÅ×ÀÌ³Ê */
+/* TestDatabase ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ */
 .test-database-container {
-<<<<<<< Updated upstream
   min-height: 100vh;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
   color: #ffffff;
@@ -399,58 +398,6 @@
 
 /* ë°˜ì‘í˜• ë””ìžì¸ */
 @media (max-width: 1024px) {
-=======
-    min-height: 100vh;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d2d2d 100%);
-    color: #e0e0e0;
-    position: relative;
-    overflow-x: hidden;
-  }
-  
-  /* Ä¿Æ° ¹è°æ È¿°ú */
-  .test-database-container::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: -50%;
-    width: 200%;
-    height: 100%;
-    background: linear-gradient(45deg, 
-      rgba(139, 0, 0, 0.1) 0%, 
-      rgba(255, 215, 0, 0.05) 25%, 
-      rgba(139, 0, 0, 0.1) 50%, 
-      rgba(255, 215, 0, 0.05) 75%, 
-      rgba(139, 0, 0, 0.1) 100%);
-    transform: skewX(-15deg);
-    z-index: -1;
-    animation: curtainFloat 20s ease-in-out infinite;
-  }
-  
-  .test-database-container::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    right: -50%;
-    width: 200%;
-    height: 100%;
-    background: linear-gradient(-45deg, 
-      rgba(255, 215, 0, 0.05) 0%, 
-      rgba(139, 0, 0, 0.1) 25%, 
-      rgba(255, 215, 0, 0.05) 50%, 
-      rgba(139, 0, 0, 0.1) 75%, 
-      rgba(255, 215, 0, 0.05) 100%);
-    transform: skewX(15deg);
-    z-index: -1;
-    animation: curtainFloat 25s ease-in-out infinite reverse;
-  }
-  
-  @keyframes curtainFloat {
-    0%, 100% { transform: skewX(-15deg) translateX(0); }
-    50% { transform: skewX(-15deg) translateX(20px); }
-  }
-  
-  /* ¸ÞÀÎ ÄÜÅÙÃ÷ */
->>>>>>> Stashed changes
   .test-database-content {
     max-width: 1200px;
     margin: 0 auto;
@@ -459,7 +406,7 @@
     z-index: 1;
   }
   
-  /* Çì´õ */
+  /* ï¿½ï¿½ï¿½ */
   .test-database-header {
     margin-bottom: 30px;
   }
@@ -507,7 +454,7 @@
     box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
   }
   
-  /* ÇÊÅÍ ¼½¼Ç */
+  /* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
   .filter-section {
     display: flex;
     justify-content: space-between;
@@ -524,7 +471,6 @@
     display: flex;
     gap: 15px;
   }
-<<<<<<< Updated upstream
 
   .test-database-content {
     padding: 15px;
@@ -579,8 +525,6 @@
     padding: 8px 16px;
     font-size: 0.7rem;
   }
-=======
->>>>>>> Stashed changes
   
   .filter-btn {
     background: rgba(139, 0, 0, 0.3);
@@ -612,7 +556,7 @@
     font-weight: 600;
   }
   
-  /* Å×½ºÆ® ¸ñ·Ï ¼½¼Ç */
+  /* ï¿½×½ï¿½Æ® ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
   .test-list-section {
     background: rgba(139, 0, 0, 0.1);
     border: 2px solid #8B0000;
@@ -730,7 +674,7 @@
     box-shadow: none;
   }
   
-  /* Å×½ºÆ® »ó¼¼ Á¤º¸ ¼½¼Ç */
+  /* ï¿½×½ï¿½Æ® ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
   .test-details-section {
     background: rgba(139, 0, 0, 0.1);
     border: 2px solid #8B0000;
@@ -769,7 +713,6 @@
     font-weight: 600;
     font-size: 0.9rem;
   }
-<<<<<<< Updated upstream
 
   .no-results-content h2 {
     font-size: 1.6rem;
@@ -789,7 +732,6 @@
     font-size: 1rem;
   }
 }
-=======
   
   .detail-value {
     color: #e0e0e0;
@@ -797,7 +739,7 @@
     font-size: 0.9rem;
   }
   
-  /* ¹ÝÀÀÇü µðÀÚÀÎ */
+  /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
   @media (max-width: 1024px) {
     .test-database-content {
       max-width: 100%;
@@ -913,4 +855,3 @@
       font-size: 0.8rem;
     }
   }
->>>>>>> Stashed changes
