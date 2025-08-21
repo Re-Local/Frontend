@@ -3,11 +3,11 @@ import Topnav from '../components/Topnav';
 import './Login.css';
 
 export default function Login() {
-  const [id, setId] = useState("");
+  const [user_id, setUserId] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    alert(`아이디: ${id}\n비밀번호: ${password}`);
+    alert(`아이디: ${user_id}\n비밀번호: ${password}`);
   };
 
   return (
@@ -27,8 +27,8 @@ export default function Login() {
             type="text"
             className="form-input"
             placeholder="아이디"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
+            value={user_id}
+            onChange={(e) => setUserId(e.target.value)}
           />
         </div>
         

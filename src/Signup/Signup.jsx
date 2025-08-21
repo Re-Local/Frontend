@@ -69,6 +69,7 @@ export default function Signup() {
       password,
       country,
       language,
+      
       age: parseInt(age, 10),
       interestTag: selectedTags.map(tag => `#${tag}`).join(','),   // #tag1,#tag2 형태로 전송
     };
@@ -242,6 +243,8 @@ export default function Signup() {
               ))}
             </div>
           </div>
+
+          
 
           <button className="signup-btn" type="submit" disabled={!canSubmit}>
             {loading ? '처리 중…' : '회원가입'}
