@@ -160,10 +160,18 @@ const Community = () => {
           <div className="community-lists">
             <h4>📝 Community Lists</h4>
             <ul>
-              <li>📌 나라별 게시판</li>
-              <li>📌 동행 구해요</li>
-              <li>📌 리뷰 / 추천</li>
-              <li>⋯</li>
+              <li onClick={() => navigate('/community/country-board')} className="clickable-list-item">
+                📌 나라별 게시판
+              </li>
+              <li onClick={() => navigate('/community/travel-partner')} className="clickable-list-item">
+                📌 동행 구해요
+              </li>
+              <li onClick={() => navigate('/community/review-recommend')} className="clickable-list-item">
+                📌 리뷰 / 추천
+              </li>
+              <li onClick={() => navigate('/community/discount-ticket')} className="clickable-list-item">
+                📌 땡처리 티켓
+              </li>
             </ul>
           </div>
         </aside>

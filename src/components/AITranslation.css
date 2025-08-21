@@ -90,39 +90,39 @@
   min-height: 70vh;
 }
 
-/* 코알라 캐릭터 */
-.koala-character {
+/* 마스코트 캐릭터 */
+.mascot-character {
   margin-bottom: 20px;
 }
 
-.koala-avatar {
+.mascot-avatar {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 160px;
+  height: 160px;
 }
 
-.koala-face {
-  width: 80px;
-  height: 80px;
-  background: #8B7355;
+.mascot-face {
+  width: 90px;
+  height: 90px;
+  background: #FFB6C1;
   border-radius: 50%;
   position: relative;
   margin: 0 auto;
-  border: 3px solid #654321;
+  border: 3px solid #FF69B4;
 }
 
-.koala-eyes {
+.mascot-eyes {
   position: absolute;
-  top: 25px;
+  top: 28px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 15px;
+  gap: 18px;
 }
 
 .eye {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   background: #000;
   border-radius: 50%;
   position: relative;
@@ -133,82 +133,162 @@
   position: absolute;
   top: 2px;
   left: 2px;
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   background: #fff;
   border-radius: 50%;
 }
 
-.koala-nose {
+.mascot-nose {
   position: absolute;
-  top: 45px;
+  top: 50px;
   left: 50%;
   transform: translateX(-50%);
-  width: 8px;
-  height: 6px;
-  background: #000;
-  border-radius: 50%;
-}
-
-.koala-blush {
-  position: absolute;
-  top: 35px;
-  width: 15px;
+  width: 10px;
   height: 8px;
-  background: #FFB6C1;
+  background: #FF69B4;
   border-radius: 50%;
 }
 
-.left-blush {
-  left: 15px;
+.mascot-smile {
+  position: absolute;
+  top: 62px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 12px;
+  border: 2px solid #FF69B4;
+  border-top: none;
+  border-radius: 0 0 24px 24px;
 }
 
-.right-blush {
-  right: 15px;
-}
-
-.koala-body {
+.mascot-body {
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 100px;
-  height: 60px;
-  background: #8B7355;
+  width: 140px;
+  height: 90px;
+  background: #87CEEB;
   border-radius: 50px 50px 25px 25px;
-  border: 3px solid #654321;
+  border: 3px solid #4682B4;
 }
 
-.koala-pajamas {
+.mascot-shirt {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 40px;
-  background: #90EE90;
+  height: 55px;
+  background: #98FB98;
   border-radius: 0 0 25px 25px;
-  border-top: 2px solid #228B22;
+  border-top: 2px solid #32CD32;
 }
 
-.koala-arm {
+.mascot-arms {
   position: absolute;
-  top: 15px;
-  width: 25px;
-  height: 35px;
-  background: #8B7355;
-  border-radius: 15px;
-  border: 2px solid #654321;
+  top: 25px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
 }
 
-.waving-arm {
-  right: -15px;
-  transform: rotate(-20deg);
-  animation: wave 2s ease-in-out infinite;
+.mascot-arm {
+  width: 35px;
+  height: 45px;
+  background: #FFB6C1;
+  border-radius: 18px;
+  border: 2px solid #FF69B4;
+  position: relative;
 }
 
-@keyframes wave {
-  0%, 100% { transform: rotate(-20deg); }
-  50% { transform: rotate(-40deg); }
+.left-arm {
+  transform: rotate(-30deg);
+  margin-left: -18px;
+}
+
+.right-arm {
+  transform: rotate(30deg);
+  margin-right: -18px;
+}
+
+.microphone-holder, .speaker-holder {
+  position: absolute;
+  top: -18px;
+  width: 48px;
+  height: 48px;
+  background: #FFD700;
+  border-radius: 50%;
+  border: 3px solid #FFA500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  outline: none;
+}
+
+.microphone-holder:hover, .speaker-holder:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.microphone-holder {
+  left: -6px;
+}
+
+.speaker-holder {
+  right: -6px;
+}
+
+.microphone-holder.listening {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.speaker-holder.speaking {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.microphone-holder:disabled, .speaker-holder:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.microphone-icon, .speaker-icon {
+  font-size: 1.5rem;
+  color: #8B0000;
+  pointer-events: none;
+}
+
+.listening-indicator, .speaking-indicator {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 20px;
+  height: 20px;
+  background: #FF0000;
+  border-radius: 50%;
+  animation: blink 1s ease-in-out infinite;
+}
+
+.speaking-indicator {
+  background: #4CAF50;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
 
 /* 환영 메시지 */
@@ -230,107 +310,6 @@
   font-size: 1.2rem;
   margin: 0;
   font-weight: 500;
-}
-
-/* AI 응답 버블 */
-.ai-response-bubble {
-  background: rgba(139, 0, 0, 0.2);
-  border: 2px solid #8B0000;
-  border-radius: 25px;
-  padding: 20px 30px;
-  max-width: 400px;
-  text-align: center;
-  position: relative;
-  margin-bottom: 60px;
-}
-
-.ai-response-bubble::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid rgba(139, 0, 0, 0.2);
-}
-
-.ai-response-bubble p {
-  color: #e0e0e0;
-  font-size: 1.1rem;
-  margin: 0;
-  line-height: 1.4;
-}
-
-/* 음성 입력 섹션 */
-.voice-input-section {
-  text-align: center;
-  margin: 20px 0 40px 0;
-}
-
-.voice-input-btn {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #8B0000, #A52A2A);
-  border: 3px solid #FFD700;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 15px;
-}
-
-.voice-input-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
-}
-
-.voice-input-btn.listening {
-  background: linear-gradient(135deg, #FFD700, #FFA500);
-  border-color: #FFD700;
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-}
-
-.microphone-icon {
-  font-size: 2rem;
-  color: #FFD700;
-}
-
-.voice-input-btn.listening .microphone-icon {
-  color: #8B0000;
-}
-
-.listening-indicator {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  width: 20px;
-  height: 20px;
-  background: #FF0000;
-  border-radius: 50%;
-  animation: blink 1s ease-in-out infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-.voice-hint {
-  color: #9ca3af;
-  font-size: 0.95rem;
-  margin: 0;
-  line-height: 1.4;
 }
 
 /* 번역 결과 */
@@ -382,6 +361,22 @@
   animation: pulse 1.5s ease-in-out infinite;
 }
 
+/* 상태 표시 */
+.status-indicator {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(139, 0, 0, 0.2);
+  border-radius: 15px;
+  border: 1px solid #8B0000;
+}
+
+.status-text {
+  color: #FFD700;
+  font-size: 1rem;
+  margin: 0;
+  font-weight: 500;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 768px) {
   .ai-translation-title {
@@ -392,19 +387,23 @@
     font-size: 1.5rem;
   }
   
-  .koala-avatar {
-    width: 100px;
-    height: 100px;
+  .mascot-avatar {
+    width: 140px;
+    height: 140px;
   }
   
-  .koala-face {
-    width: 70px;
-    height: 70px;
+  .mascot-face {
+    width: 80px;
+    height: 80px;
   }
   
-  .voice-input-btn {
-    width: 70px;
-    height: 70px;
+  .microphone-holder, .speaker-holder {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .microphone-icon, .speaker-icon {
+    font-size: 1.3rem;
   }
 }
 
@@ -421,22 +420,22 @@
     font-size: 1.3rem;
   }
   
-  .koala-avatar {
-    width: 80px;
-    height: 80px;
+  .mascot-avatar {
+    width: 120px;
+    height: 120px;
   }
   
-  .koala-face {
-    width: 60px;
-    height: 60px;
+  .mascot-face {
+    width: 70px;
+    height: 70px;
   }
   
-  .voice-input-btn {
-    width: 60px;
-    height: 60px;
+  .microphone-holder, .speaker-holder {
+    width: 40px;
+    height: 40px;
   }
   
-  .microphone-icon {
-    font-size: 1.5rem;
+  .microphone-icon, .speaker-icon {
+    font-size: 1.2rem;
   }
 }

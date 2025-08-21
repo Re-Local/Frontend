@@ -7,6 +7,7 @@ const AITranslation = () => {
   const [isListening, setIsListening] = useState(false);
   const [translationResult, setTranslationResult] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   const handleVoiceInput = () => {
     if (!isListening) {
@@ -40,6 +41,20 @@ const AITranslation = () => {
     }
   };
 
+  const handleVoiceOutput = () => {
+    if (translationResult && !isProcessing) {
+      setIsSpeaking(true);
+      
+      // 실제 TTS API를 여기에 연결할 수 있습니다
+      // 현재는 시뮬레이션으로 2초 후 완료
+      setTimeout(() => {
+        setIsSpeaking(false);
+        // 여기에 실제 음성 출력 로직 추가
+        console.log('음성 출력:', translationResult);
+      }, 2000);
+    }
+  };
+
   return (
     <div className="ai-translation-container">
       <Topnav />
@@ -51,21 +66,42 @@ const AITranslation = () => {
         </div>
 
         <div className="translation-main">
-          {/* 코알라 캐릭터 */}
-          <div className="koala-character">
-            <div className="koala-avatar">
-              <div className="koala-face">
-                <div className="koala-eyes">
+          {/* 마스코트 캐릭터 */}
+          <div className="mascot-character">
+            <div className="mascot-avatar">
+              <div className="mascot-face">
+                <div className="mascot-eyes">
                   <div className="eye left-eye"></div>
                   <div className="eye right-eye"></div>
                 </div>
-                <div className="koala-nose"></div>
-                <div className="koala-blush left-blush"></div>
-                <div className="koala-blush right-blush"></div>
+                <div className="mascot-nose"></div>
+                <div className="mascot-smile"></div>
               </div>
-              <div className="koala-body">
-                <div className="koala-pajamas"></div>
-                <div className="koala-arm waving-arm"></div>
+              <div className="mascot-body">
+                <div className="mascot-shirt"></div>
+                <div className="mascot-arms">
+                  <div className="mascot-arm left-arm">
+                    <button 
+                      className={`microphone-holder ${isListening ? 'listening' : ''}`}
+                      onClick={handleVoiceInput}
+                      aria-label="음성 입력 시작/중지"
+                    >
+                      <div className="microphone-icon">🎤</div>
+                      {isListening && <div className="listening-indicator"></div>}
+                    </button>
+                  </div>
+                  <div className="mascot-arm right-arm">
+                    <button 
+                      className={`speaker-holder ${isSpeaking ? 'speaking' : ''}`}
+                      onClick={handleVoiceOutput}
+                      disabled={!translationResult || isProcessing}
+                      aria-label="음성으로 출력"
+                    >
+                      <div className="speaker-icon">🔊</div>
+                      {isSpeaking && <div className="speaking-indicator"></div>}
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -73,21 +109,7 @@ const AITranslation = () => {
           {/* 환영 메시지 */}
           <div className="welcome-message">
             <h2 className="greeting">Hi, {userName}!</h2>
-          </div>
-
-          {/* 음성 입력 버튼 */}
-          <div className="voice-input-section">
-            <button 
-              className={`voice-input-btn ${isListening ? 'listening' : ''}`}
-              onClick={handleVoiceInput}
-              aria-label="음성 입력 시작/중지"
-            >
-              <div className="microphone-icon">🎤</div>
-              {isListening && <div className="listening-indicator"></div>}
-            </button>
-            <p className="voice-hint">
-              {isListening ? '음성 인식 중... 다시 눌러서 중지하세요!' : '마이크를 눌러서 음성 인식을 시작하세요'}
-            </p>
+            <p className="sub-greeting">마이크로 말하고, 스피커로 들어보세요!</p>
           </div>
 
           {/* 번역 결과 표시 영역 */}
@@ -100,9 +122,22 @@ const AITranslation = () => {
                     {translationResult}
                   </p>
                 ) : (
-                  <p className="placeholder-text">음성 입력 후 번역 결과가 여기에 표시됩니다</p>
+                  <p className="placeholder-text">마스코트의 마이크를 눌러서 음성 인식을 시작하세요</p>
                 )}
               </div>
+              
+              {/* 상태 표시 */}
+              {isListening && (
+                <div className="status-indicator">
+                  <p className="status-text">🎤 음성 인식 중... 다시 눌러서 중지하세요!</p>
+                </div>
+              )}
+              
+              {isSpeaking && (
+                <div className="status-indicator">
+                  <p className="status-text">🔊 음성 출력 중...</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -112,3 +147,4 @@ const AITranslation = () => {
 };
 
 export default AITranslation;
+

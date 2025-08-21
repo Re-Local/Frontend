@@ -1,7 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Foodmap from "./foodmap/foodmap";
+import Map from "./Map/Map";
 import Genre from './Genre/Genre';
 import Community from './Community/Community';
+import CountryBoard from './Community/CountryBoard';
+import TravelPartner from './Community/TravelPartner';
+import ReviewRecommend from './Community/ReviewRecommend';
+import DiscountTicket from './Community/DiscountTicket';
+import PaymentPage from './Community/PaymentPage';
 import Recommended from './Genre/Recommended';
 import AllPosters from './Genre/AllPosters';
 import Main from './MainPage/Main';
@@ -13,6 +18,7 @@ import TestResults from './components/TestResults';
 import TestDatabase from './components/TestDatabase';
 import AITranslation from './components/AITranslation';
 import Review from './components/Review';
+import EventDetail from './components/EventDetail';
 
 
 
@@ -22,8 +28,8 @@ const router = createBrowserRouter([
     element: <Main />,
   },
   {
-    path: "/foodmap",
-    element: <Foodmap />,
+    path: "/map",
+    element: <Map />,
   },
   {
     path: "/genre",
@@ -32,6 +38,26 @@ const router = createBrowserRouter([
   {
     path: "/community",
     element: <Community />,
+  },
+  {
+    path: "/community/country-board",
+    element: <CountryBoard />,
+  },
+  {
+    path: "/community/travel-partner",
+    element: <TravelPartner />,
+  },
+  {
+    path: "/community/review-recommend",
+    element: <ReviewRecommend />,
+  },
+  {
+    path: "/community/discount-ticket",
+    element: <DiscountTicket />,
+  },
+  {
+    path: "/community/payment",
+    element: <PaymentPage />,
   },
   {
     path: "/genre/recommended",
@@ -71,6 +97,10 @@ const router = createBrowserRouter([
         {
           path: "/review",
           element: <Review />
+        },
+        {
+          path: "/event/:id",
+          element: <EventDetail />
         }
   
 

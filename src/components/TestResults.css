@@ -1,48 +1,4 @@
-/* TestResults 페이지 전체 컨테이너 */
-.testresults-container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2d2d2d 100%);
-  color: #e0e0e0;
-  position: relative;
-  overflow-x: hidden;
-}
 
-/* 커튼 배경 효과 */
-.testresults-container::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: -50%;
-  width: 200%;
-  height: 100%;
-  background: linear-gradient(45deg, 
-    rgba(139, 0, 0, 0.1) 0%, 
-    rgba(255, 215, 0, 0.05) 25%, 
-    rgba(139, 0, 0, 0.1) 50%, 
-    rgba(255, 215, 0, 0.05) 75%, 
-    rgba(139, 0, 0, 0.1) 100%);
-  transform: skewX(-15deg);
-  z-index: -1;
-  animation: curtainFloat 20s ease-in-out infinite;
-}
-
-.testresults-container::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  right: -50%;
-  width: 200%;
-  height: 100%;
-  background: linear-gradient(-45deg, 
-    rgba(255, 215, 0, 0.05) 0%, 
-    rgba(139, 0, 0, 0.1) 25%, 
-    rgba(255, 215, 0, 0.05) 50%, 
-    rgba(139, 0, 0, 0.1) 75%, 
-    rgba(255, 215, 0, 0.05) 100%);
-  transform: skewX(15deg);
-  z-index: -1;
-  animation: curtainFloat 25s ease-in-out infinite reverse;
-}
 
 @keyframes curtainFloat {
   0%, 100% { transform: skewX(-15deg) translateX(0); }
@@ -80,87 +36,76 @@
   line-height: 1.5;
 }
 
-/* 결과 요약 섹션 */
-.results-summary {
-  background: rgba(139, 0, 0, 0.1);
+/* 타입 히어로 섹션 */
+.type-hero {
+  background: rgba(139, 0, 0, 0.18);
   border: 2px solid #8B0000;
-  border-radius: 20px;
-  padding: 30px;
-  margin-top: 30px;
-  backdrop-filter: blur(10px);
-}
-
-.results-summary h2 {
-  color: #FFD700;
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 0 0 20px 0;
+  border-radius: 16px;
+  padding: 28px 24px;
   text-align: center;
-  text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
 }
 
-.results-summary > p {
+.type-code {
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  color: #FFD700;
+  text-shadow: 0 0 24px rgba(255, 215, 0, 0.35);
+  margin-bottom: 10px;
+}
+
+.type-desc {
   color: #e0e0e0;
-  font-size: 1.1rem;
-  text-align: center;
-  margin: 0 0 30px 0;
+  margin: 0;
 }
 
-/* 결과 분석 */
-.results-breakdown {
-  margin-bottom: 30px;
+/* 추천 섹션 */
+.recommendations {
+  margin-top: 28px;
+  background: rgba(139, 0, 0, 0.1);
+  border: 1px solid #8B0000;
+  border-radius: 14px;
+  padding: 20px;
 }
 
-.results-breakdown h3 {
+.recommendations h2 {
   color: #FFD700;
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 0 0 20px 0;
-  text-align: center;
+  margin: 0 0 14px 0;
 }
 
-.breakdown-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 15px;
-  margin-bottom: 30px;
-}
-
-.stat-item {
+.tag-list {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(139, 0, 0, 0.2);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  background: rgba(139, 0, 0, 0.25);
+  border: 1px solid #FFD700;
+  color: #FFD700;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid #8B0000;
   border-radius: 10px;
-  padding: 15px;
-  transition: all 0.3s ease;
-}
-
-.stat-item:hover {
-  border-color: #FFD700;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-}
-
-.stat-label {
-  color: #e0e0e0;
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.stat-value {
-  color: #FFD700;
-  font-size: 1.2rem;
-  font-weight: 700;
-  background: rgba(139, 0, 0, 0.3);
-  padding: 5px 12px;
-  border-radius: 20px;
-  border: 1px solid #FFD700;
+  padding: 16px;
+  text-align: center;
 }
 
 /* 액션 버튼 */
 .action-buttons {
   text-align: center;
+  margin-top: 30px;
 }
 
 .retake-btn {
@@ -184,24 +129,22 @@
   box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
 }
 
-
-
 /* 반응형 디자인 */
 @media (max-width: 768px) {
   .testresults-title {
     font-size: 2.5rem;
   }
   
-  .results-summary {
-    padding: 20px;
+  .type-code {
+    font-size: 2.5rem;
   }
   
-  .results-summary h2 {
-    font-size: 1.8rem;
+  .recommendations {
+    padding: 16px;
   }
   
-  .breakdown-stats {
-    grid-template-columns: 1fr;
+  .cards {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 }
 
@@ -214,25 +157,26 @@
     font-size: 2rem;
   }
   
-  .results-summary {
-    padding: 15px;
+  .type-code {
+    font-size: 2rem;
+    letter-spacing: 2px;
   }
   
-  .results-summary h2 {
-    font-size: 1.5rem;
+  .type-hero {
+    padding: 20px 16px;
   }
   
-  .stat-item {
-    padding: 12px;
+  .recommendations {
+    padding: 14px;
   }
   
-  .stat-label {
+  .tag {
+    padding: 5px 10px;
     font-size: 0.9rem;
   }
   
-  .stat-value {
-    font-size: 1rem;
-    padding: 4px 10px;
+  .card {
+    padding: 12px;
   }
   
   .retake-btn {
@@ -240,3 +184,4 @@
     font-size: 1rem;
   }
 }
+  
