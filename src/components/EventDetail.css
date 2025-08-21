@@ -61,6 +61,7 @@
 
 .event-info-card,
 .event-description-card,
+.event-foreign-summary-card,
 .event-highlights-card,
 .action-card {
   background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
@@ -74,6 +75,7 @@
 
 .event-info-card::before,
 .event-description-card::before,
+.event-foreign-summary-card::before,
 .event-highlights-card::before,
 .action-card::before {
   content: '';
@@ -87,6 +89,7 @@
 
 .event-info-card h2,
 .event-description-card h2,
+.event-foreign-summary-card h2,
 .event-highlights-card h2,
 .action-card h3 {
   color: #d4af37;
@@ -190,6 +193,65 @@
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+/* 외국인용 요약 박스 스타일 */
+.foreign-summary-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.summary-section {
+  border-left: 3px solid #d4af37;
+  padding-left: 15px;
+}
+
+.summary-section h3 {
+  color: #d4af37;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.summary-section p {
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.foreign-highlights,
+.foreign-tips {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.foreign-highlights li,
+.foreign-tips li {
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  padding: 6px 0;
+  position: relative;
+  padding-left: 20px;
+}
+
+.foreign-highlights li::before {
+  content: '✨';
+  position: absolute;
+  left: 0;
+  color: #d4af37;
+  font-size: 0.9rem;
+}
+
+.foreign-tips li::before {
+  content: '💡';
+  position: absolute;
+  left: 0;
+  color: #d4af37;
+  font-size: 0.9rem;
 }
 
 /* 반응형 디자인 */

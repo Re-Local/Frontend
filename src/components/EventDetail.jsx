@@ -69,6 +69,51 @@ export default function EventDetail() {
               </p>
             </div>
 
+            <div className="event-foreign-summary-card">
+              <h2>📖 For International Visitors</h2>
+              <div className="foreign-summary-content">
+                <div className="summary-section">
+                  <h3>🎯 What is this?</h3>
+                  <p>
+                    {event.title} is a contemporary art exhibition that showcases 
+                    diverse artistic expressions through works by renowned Korean and 
+                    international artists. Experience innovative visual perspectives 
+                    that transcend traditional artistic boundaries.
+                  </p>
+                </div>
+                
+                <div className="summary-section">
+                  <h3>🌟 Why visit?</h3>
+                  <ul className="foreign-highlights">
+                    <li>Discover cutting-edge contemporary art from Asia</li>
+                    <li>Experience interactive media installations</li>
+                    <li>Learn about Korean art scene and culture</li>
+                    <li>Free admission for all visitors</li>
+                  </ul>
+                </div>
+
+                <div className="summary-section">
+                  <h3>📍 Location & Access</h3>
+                  <p>
+                    <strong>Venue:</strong> Seoul Museum of Art<br/>
+                    <strong>Address:</strong> 61 Deoksugung-gil, Jung-gu, Seoul<br/>
+                    <strong>Subway:</strong> City Hall Station (Line 1, 2) Exit 1<br/>
+                    <strong>Walking:</strong> 5 minutes from City Hall
+                  </p>
+                </div>
+
+                <div className="summary-section">
+                  <h3>💡 Tips for Visitors</h3>
+                  <ul className="foreign-tips">
+                    <li>Best time to visit: Weekdays 10AM-2PM (less crowded)</li>
+                    <li>Photography allowed (no flash)</li>
+                    <li>English audio guides available</li>
+                    <li>Free guided tours on weekends</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
             <div className="event-highlights-card">
               <h2>주요 특징</h2>
               <ul className="highlights-list">

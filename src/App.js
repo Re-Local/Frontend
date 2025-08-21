@@ -2,6 +2,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Foodmap from "./foodmap/foodmap";
 import Genre from './Genre/Genre';
 import Community from './Community/Community';
+import CountryBoard from './Community/CountryBoard';
+import TravelPartner from './Community/TravelPartner';
+import ReviewRecommend from './Community/ReviewRecommend';
+import DiscountTicket from './Community/DiscountTicket';
 import Recommended from './Genre/Recommended';
 import AllPosters from './Genre/AllPosters';
 import Main from './MainPage/Main';
@@ -33,6 +37,22 @@ const router = createBrowserRouter([
   {
     path: "/community",
     element: <Community />,
+  },
+  {
+    path: "/community/country-board",
+    element: <CountryBoard />,
+  },
+  {
+    path: "/community/travel-partner",
+    element: <TravelPartner />,
+  },
+  {
+    path: "/community/review-recommend",
+    element: <ReviewRecommend />,
+  },
+  {
+    path: "/community/discount-ticket",
+    element: <DiscountTicket />,
   },
   {
     path: "/genre/recommended",
