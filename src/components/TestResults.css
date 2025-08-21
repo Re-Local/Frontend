@@ -80,6 +80,7 @@
   line-height: 1.5;
 }
 
+<<<<<<< HEAD
 /* 타입 히어로 섹션 */
 .type-hero {
   background: rgba(139, 0, 0, 0.18);
@@ -146,6 +147,8 @@
   text-align: center;
 }
 
+=======
+>>>>>>> 134201af9a36c951105186aebdb31670885e94e8
 /* 결과 요약 섹션 */
 .results-summary {
   background: rgba(139, 0, 0, 0.1);

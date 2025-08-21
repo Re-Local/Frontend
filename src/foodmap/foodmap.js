@@ -1,7 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Topnav from '../components/Topnav';
+<<<<<<< HEAD
 import './Foodmap.css';
+=======
+import './foodmap.css';
+>>>>>>> 134201af9a36c951105186aebdb31670885e94e8
 // @ts-ignore
 import { feature } from 'topojson-client';
 
