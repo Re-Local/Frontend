@@ -721,19 +721,19 @@
 
 .event-bullet { 
   color: #d4af37; 
-  font-size: 16px; 
+  font-size: 14px; 
   font-weight: bold;
 }
 
 .event-title { 
   font-weight: 600; 
   color: #f5f5f5; 
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 .event-range { 
   color: #c5a572; 
-  font-size: 0.8rem; 
+  font-size: 0.75rem; 
   font-weight: 500;
 }
 
