@@ -31,46 +31,58 @@ const TestResults = () => {
 
   const sum = (idxList) => idxList.reduce((acc, i) => acc + (Number(testResults[i]) || 0), 0);
 
-  const pScore = sum([0, 5, 6, 7, 8, 11]);
-  const bScore = sum([9, 18]);
-  const dim1 = pScore >= bScore ? 'P' : 'B';
+  // 1. 참여(P) vs 관찰(O) 축 - 더 극적인 대비
+  const pScore = sum([3, 8, 10, 19]); // 인터랙티브, 소극장 친밀, 새로운 배우, 소통
+  const oScore = sum([0, 1, 11, 15]); // 드라마/비극, 코미디, 유명 배우, 한국적 정서
+  const dim1 = pScore > oScore ? 'P' : (pScore < oScore ? 'O' : (Math.random() > 0.5 ? 'P' : 'O'));
 
-  const iScore = sum([5, 0, 14]);
-  const sScore = sum([1, 15]);
-  const dim2 = iScore >= sScore ? 'I' : 'S';
+  // 2. 현실(R) vs 상징(S) 축 - 가중치 적용
+  const rScore = sum([5, 7, 12, 16]) * 1.2; // 사회적 메시지, 각색 작품, 감동, 라이브 연기
+  const sScore = sum([2, 6, 13, 17]) * 1.1; // 실험적 연극, 상징적 작품, 철학적 작품, 대사 중심
+  const dim2 = rScore > sScore ? 'R' : (rScore < sScore ? 'S' : (Math.random() > 0.5 ? 'R' : 'S'));
 
-  const cScore = sum([2, 15, 16, 19, 20]);
-  const lScore = sum([12, 14]);
-  const dim3 = cScore >= lScore ? 'C' : 'L';
+  // 3. 감성(E) vs 이성(I) 축 - 역방향 가중치
+  const eScore = sum([0, 4, 12, 15]) * 1.15; // 드라마/비극, 몸짓/무언극, 감동, 한국적 정서
+  const iScore = sum([2, 6, 13, 17]) * 1.25; // 실험적 연극, 상징적 작품, 철학적 작품, 대사 중심
+  const dim3 = eScore > iScore ? 'E' : (eScore < iScore ? 'I' : (Math.random() > 0.5 ? 'E' : 'I'));
 
-  const tScore = sum([16, 18]);
-  const xScore = sum([10, 11]);
-  const dim4 = tScore >= xScore ? 'T' : 'X';
+  // 4. 즉흥(F) vs 구조(J) 축 - 극단적 대비
+  const fScore = sum([3, 4, 18, 19]) * 1.3; // 인터랙티브, 몸짓/무언극, 짧고 가벼운, 소통
+  const jScore = sum([7, 8, 9, 20]) * 1.1; // 각색 작품, 소극장, 대규모 공연, 서사 깊은
+  const dim4 = fScore > jScore ? 'F' : (fScore < jScore ? 'J' : (Math.random() > 0.5 ? 'F' : 'J'));
 
   const typeCode = `${dim1}${dim2}${dim3}${dim4}`;
 
   const typeDescription = {
-    P: '무대 위에서 에너지를 얻고 표현을 즐기는 성향',
-    B: '무대 뒤에서 완성도를 높이는 제작·기술 중심 성향',
-    I: '유연하고 즉흥적인 상황에 강한 성향',
-    S: '대본과 구조를 바탕으로 체계적으로 준비하는 성향',
-    C: '협업과 팀워크를 중시하는 성향',
-    L: '몰입을 위해 비교적 독립적으로 준비하는 성향',
-    T: '전통적 형식과 클래식한 작품을 선호하는 성향',
-    X: '새로운 형식과 실험적 무대를 선호하는 성향'
+    P: '직접 참여하고 소통하는 것을 즐기는 성향',
+    O: '관객으로서 작품을 관찰하고 감상하는 성향',
+    R: '현실적이고 구체적인 메시지를 선호하는 성향',
+    S: '상징적이고 해석이 필요한 작품을 즐기는 성향',
+    E: '감정적 몰입과 직관적 감상을 선호하는 성향',
+    I: '이성적 분석과 사고를 자극하는 작품을 선호하는 성향',
+    F: '즉흥적이고 자유로운 형식을 즐기는 성향',
+    J: '구조적이고 체계적인 작품 구성을 선호하는 성향'
   };
 
   const genres = [];
-  if (dim1 === 'P') genres.push('뮤지컬', '코미디 연극');
-  else genres.push('창작극 스태프 참여', '테크니컬 시어터');
-  if (dim4 === 'X') genres.push('실험극', '즉흥극');
-  else genres.push('고전 비극', '리얼리즘 드라마');
+  if (dim1 === 'P') genres.push('인터랙티브 연극', '참여형 공연');
+  else genres.push('전통 연극', '클래식 작품');
+  if (dim2 === 'R') genres.push('사회극', '리얼리즘 드라마');
+  else genres.push('실험극', '상징극');
+  if (dim3 === 'E') genres.push('감동 드라마', '비극');
+  else genres.push('철학극', '사고극');
+  if (dim4 === 'F') genres.push('즉흥극', '자유극');
+  else genres.push('구조극', '서사극');
 
   const plays = [];
-  if (dim1 === 'P') plays.push('라이온 킹', '햄릿');
-  else plays.push('스태프 워크숍 추천', '무대기술 쇼케이스');
-  if (dim4 === 'X') plays.push('즉흥극 쇼케이스');
-  else plays.push('오이디푸스');
+  if (dim1 === 'P') plays.push('인터랙티브 쇼', '참여형 워크숍');
+  else plays.push('햄릿', '오이디푸스');
+  if (dim2 === 'R') plays.push('사회 문제극', '현실 드라마');
+  else plays.push('상징극', '실험 작품');
+  if (dim3 === 'E') plays.push('감동 비극', '감정 드라마');
+  else plays.push('철학적 작품', '사고 자극극');
+  if (dim4 === 'F') plays.push('즉흥극 쇼', '자유 형식극');
+  else plays.push('서사극', '구조적 작품');
 
   return (
     <div className="testresults-container">

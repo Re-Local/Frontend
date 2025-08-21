@@ -29,7 +29,7 @@ const MyTest = () => {
     "무대보다 배우의 생생한 라이브 연기 자체를 집중해서 본다.", 
     "시각적 효과보다 대사의 힘과 대화 중심 전개가 더 끌린다.",
     "짧고 가볍게 볼 수 있는 연극이 좋다.",
-    "길더라도 서사 깊은 작품을 끝까지 따라가는 것을 즐긴."
+    "길더라도 서사 깊은 작품을 끝까지 따라가는 것을 즐긴다"
   ];
 
 
@@ -105,8 +105,8 @@ const MyTest = () => {
               {/* 7단계 응답 척도 */}
               <div className="response-scale">
                 <div className="scale-labels">
-                  <span className="label-left">그렇다</span>
-                  <span className="label-right">그렇지 않다</span>
+                  <span className="label-left">그렇지 않다</span>
+                  <span className="label-right">그렇다</span>
                 </div>
                 
                 <div className="scale-circles">
