@@ -97,13 +97,13 @@
 
 .mascot-avatar {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: 160px;
+  height: 160px;
 }
 
 .mascot-face {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   background: #FFB6C1;
   border-radius: 50%;
   position: relative;
@@ -113,16 +113,16 @@
 
 .mascot-eyes {
   position: absolute;
-  top: 25px;
+  top: 28px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 15px;
+  gap: 18px;
 }
 
 .eye {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   background: #000;
   border-radius: 50%;
   position: relative;
@@ -133,33 +133,33 @@
   position: absolute;
   top: 2px;
   left: 2px;
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   background: #fff;
   border-radius: 50%;
 }
 
 .mascot-nose {
   position: absolute;
-  top: 45px;
+  top: 50px;
   left: 50%;
   transform: translateX(-50%);
-  width: 8px;
-  height: 6px;
+  width: 10px;
+  height: 8px;
   background: #FF69B4;
   border-radius: 50%;
 }
 
 .mascot-smile {
   position: absolute;
-  top: 55px;
+  top: 62px;
   left: 50%;
   transform: translateX(-50%);
-  width: 20px;
-  height: 10px;
+  width: 24px;
+  height: 12px;
   border: 2px solid #FF69B4;
   border-top: none;
-  border-radius: 0 0 20px 20px;
+  border-radius: 0 0 24px 24px;
 }
 
 .mascot-body {
@@ -167,8 +167,8 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 120px;
-  height: 80px;
+  width: 140px;
+  height: 90px;
   background: #87CEEB;
   border-radius: 50px 50px 25px 25px;
   border: 3px solid #4682B4;
@@ -179,7 +179,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 50px;
+  height: 55px;
   background: #98FB98;
   border-radius: 0 0 25px 25px;
   border-top: 2px solid #32CD32;
@@ -187,7 +187,7 @@
 
 .mascot-arms {
   position: absolute;
-  top: 20px;
+  top: 25px;
   left: 0;
   right: 0;
   display: flex;
@@ -195,29 +195,29 @@
 }
 
 .mascot-arm {
-  width: 30px;
-  height: 40px;
+  width: 35px;
+  height: 45px;
   background: #FFB6C1;
-  border-radius: 15px;
+  border-radius: 18px;
   border: 2px solid #FF69B4;
   position: relative;
 }
 
 .left-arm {
   transform: rotate(-30deg);
-  margin-left: -15px;
+  margin-left: -18px;
 }
 
 .right-arm {
   transform: rotate(30deg);
-  margin-right: -15px;
+  margin-right: -18px;
 }
 
 .microphone-holder, .speaker-holder {
   position: absolute;
-  top: -15px;
-  width: 40px;
-  height: 40px;
+  top: -18px;
+  width: 48px;
+  height: 48px;
   background: #FFD700;
   border-radius: 50%;
   border: 3px solid #FFA500;
@@ -237,11 +237,11 @@
 }
 
 .microphone-holder {
-  left: -5px;
+  left: -6px;
 }
 
 .speaker-holder {
-  right: -5px;
+  right: -6px;
 }
 
 .microphone-holder.listening {
@@ -261,17 +261,17 @@
 }
 
 .microphone-icon, .speaker-icon {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: #8B0000;
   pointer-events: none;
 }
 
 .listening-indicator, .speaking-indicator {
   position: absolute;
-  top: -5px;
-  right: -5px;
-  width: 18px;
-  height: 18px;
+  top: -6px;
+  right: -6px;
+  width: 20px;
+  height: 20px;
   background: #FF0000;
   border-radius: 50%;
   animation: blink 1s ease-in-out infinite;
@@ -388,13 +388,22 @@
   }
   
   .mascot-avatar {
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
   }
   
   .mascot-face {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
+  }
+  
+  .microphone-holder, .speaker-holder {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .microphone-icon, .speaker-icon {
+    font-size: 1.3rem;
   }
 }
 
@@ -412,16 +421,21 @@
   }
   
   .mascot-avatar {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
   }
   
   .mascot-face {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
+  }
+  
+  .microphone-holder, .speaker-holder {
+    width: 40px;
+    height: 40px;
   }
   
   .microphone-icon, .speaker-icon {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 }
