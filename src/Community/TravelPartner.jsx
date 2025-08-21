@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Topnav from '../components/Topnav';
+import CommentModal from './CommentModal';
 import './Community.css';
 
 const TravelPartner = () => {
@@ -19,7 +20,9 @@ const TravelPartner = () => {
       date: "2025-01-15",
       likes: 8,
       comments: 12,
-      tags: ["Seoul", "Food", "Culture", "Shopping"]
+      tags: ["Seoul", "Food", "Culture", "Shopping"],
+      liked: false,
+      commentsList: []
     },
     {
       id: 2,
@@ -34,7 +37,9 @@ const TravelPartner = () => {
       date: "2025-01-14",
       likes: 15,
       comments: 8,
-      tags: ["Busan", "Beach", "Seafood", "Nature"]
+      tags: ["Busan", "Beach", "Seafood", "Nature"],
+      liked: false,
+      commentsList: []
     },
     {
       id: 3,
@@ -49,13 +54,16 @@ const TravelPartner = () => {
       date: "2025-01-13",
       likes: 6,
       comments: 9,
-      tags: ["Jeju", "Hiking", "Nature", "Photography"]
+      tags: ["Jeju", "Hiking", "Nature", "Photography"],
+      liked: false,
+      commentsList: []
     }
   ]);
 
   const [newPost, setNewPost] = useState("");
   const [selectedDestination, setSelectedDestination] = useState("all");
   const [selectedBudget, setSelectedBudget] = useState("all");
+  const [commentModal, setCommentModal] = useState({ isOpen: false, postId: null, postTitle: "" });
 
   const destinations = [
     { code: "all", name: "All Destinations", icon: "🗺️" },
@@ -89,11 +97,56 @@ const TravelPartner = () => {
       date: new Date().toISOString().split('T')[0],
       likes: 0,
       comments: 0,
-      tags: ["New Post"]
+      tags: ["New Post"],
+      liked: false,
+      commentsList: []
     };
 
     setPosts([newPostData, ...posts]);
     setNewPost("");
+  };
+
+  const handleLike = (postId) => {
+    setPosts(posts.map(post => {
+      if (post.id === postId) {
+        return {
+          ...post,
+          liked: !post.liked,
+          likes: post.liked ? post.likes - 1 : post.likes + 1
+        };
+      }
+      return post;
+    }));
+  };
+
+  const handleComment = (postId, commentText) => {
+    setPosts(posts.map(post => {
+      if (post.id === postId) {
+        return {
+          ...post,
+          comments: post.comments + 1,
+          commentsList: [...post.commentsList, {
+            id: Date.now(),
+            text: commentText,
+            userName: "You",
+            date: new Date().toISOString().split('T')[0]
+          }]
+        };
+      }
+      return post;
+    }));
+  };
+
+  const openCommentModal = (postId, postTitle) => {
+    setCommentModal({ isOpen: true, postId, postTitle });
+  };
+
+  const closeCommentModal = () => {
+    setCommentModal({ isOpen: false, postId: null, postTitle: "" });
+  };
+
+  const handleJoin = (post) => {
+    alert(`🤝 동행 신청이 완료되었습니다!\n\n${post.userName}님께 동행 신청을 보냈습니다.\n\n상대방이 수락하면 연락드리겠습니다.`);
   };
 
   const filteredPosts = posts.filter(post => {
@@ -205,13 +258,27 @@ const TravelPartner = () => {
                   ))}
                 </div>
                 <div className="review-actions">
-                  <button className="icon-btn" title="like">
+                  <button 
+                    className={`icon-btn ${post.liked ? 'liked' : ''}`} 
+                    title="like"
+                    onClick={() => handleLike(post.id)}
+                  >
                     ♥ {post.likes}
                   </button>
-                  <button className="icon-btn" title="comment">
+                  <button 
+                    className="icon-btn" 
+                    title="comment"
+                    onClick={() => openCommentModal(post.id, post.content.substring(0, 30) + "...")}
+                  >
                     💬 {post.comments}
                   </button>
-                  <button className="icon-btn" title="join">🤝 Join</button>
+                  <button 
+                    className="icon-btn" 
+                    title="join"
+                    onClick={() => handleJoin(post)}
+                  >
+                    🤝 Join
+                  </button>
                 </div>
               </footer>
             </article>
@@ -241,6 +308,14 @@ const TravelPartner = () => {
           </div>
         </aside>
       </main>
+
+      <CommentModal
+        isOpen={commentModal.isOpen}
+        onClose={closeCommentModal}
+        onSubmit={handleComment}
+        postId={commentModal.postId}
+        postTitle={commentModal.postTitle}
+      />
     </div>
   );
 };

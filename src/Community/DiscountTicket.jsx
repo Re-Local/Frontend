@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Topnav from '../components/Topnav';
+import CommentModal from './CommentModal';
 import './Community.css';
 
 const DiscountTicket = () => {
@@ -24,7 +25,9 @@ const DiscountTicket = () => {
       postDate: "2025-01-15",
       likes: 45,
       comments: 23,
-      tags: ["BTS", "Concert", "Seoul", "Discount", "Urgent"]
+      tags: ["BTS", "Concert", "Seoul", "Discount", "Urgent"],
+      liked: false,
+      commentsList: []
     },
     {
       id: 2,
@@ -44,7 +47,9 @@ const DiscountTicket = () => {
       postDate: "2025-01-14",
       likes: 18,
       comments: 12,
-      tags: ["Musical", "Lion King", "Family", "Hongdae", "Good Deal"]
+      tags: ["Musical", "Lion King", "Family", "Hongdae", "Good Deal"],
+      liked: false,
+      commentsList: []
     },
     {
       id: 3,
@@ -64,13 +69,16 @@ const DiscountTicket = () => {
       postDate: "2025-01-13",
       likes: 12,
       comments: 8,
-      tags: ["Hamlet", "Classical", "Theater", "Front Row", "Great View"]
+      tags: ["Hamlet", "Classical", "Theater", "Front Row", "Great View"],
+      liked: false,
+      commentsList: []
     }
   ]);
 
   const [newPost, setNewPost] = useState("");
   const [selectedTicketType, setSelectedTicketType] = useState("all");
   const [selectedDiscount, setSelectedDiscount] = useState("all");
+  const [commentModal, setCommentModal] = useState({ isOpen: false, postId: null, postTitle: "" });
 
   const ticketTypes = [
     { code: "all", name: "All Types", icon: "🎫" },
@@ -110,11 +118,56 @@ const DiscountTicket = () => {
       postDate: new Date().toISOString().split('T')[0],
       likes: 0,
       comments: 0,
-      tags: ["New Post"]
+      tags: ["New Post"],
+      liked: false,
+      commentsList: []
     };
 
     setPosts([newPostData, ...posts]);
     setNewPost("");
+  };
+
+  const handleLike = (postId) => {
+    setPosts(posts.map(post => {
+      if (post.id === postId) {
+        return {
+          ...post,
+          liked: !post.liked,
+          likes: post.liked ? post.likes - 1 : post.likes + 1
+        };
+      }
+      return post;
+    }));
+  };
+
+  const handleComment = (postId, commentText) => {
+    setPosts(posts.map(post => {
+      if (post.id === postId) {
+        return {
+          ...post,
+          comments: post.comments + 1,
+          commentsList: [...post.commentsList, {
+            id: Date.now(),
+            text: commentText,
+            userName: "You",
+            date: new Date().toISOString().split('T')[0]
+          }]
+        };
+      }
+      return post;
+    }));
+  };
+
+  const openCommentModal = (postId, postTitle) => {
+    setCommentModal({ isOpen: true, postId, postTitle });
+  };
+
+  const closeCommentModal = () => {
+    setCommentModal({ isOpen: false, postId: null, postTitle: "" });
+  };
+
+  const handleBuy = (post) => {
+    navigate('/community/payment', { state: { ticket: post } });
   };
 
   const filteredPosts = posts.filter(post => {
@@ -237,13 +290,27 @@ const DiscountTicket = () => {
                   ))}
                 </div>
                 <div className="review-actions">
-                  <button className="icon-btn" title="like">
+                  <button 
+                    className={`icon-btn ${post.liked ? 'liked' : ''}`} 
+                    title="like"
+                    onClick={() => handleLike(post.id)}
+                  >
                     ♥ {post.likes}
                   </button>
-                  <button className="icon-btn" title="comment">
+                  <button 
+                    className="icon-btn" 
+                    title="comment"
+                    onClick={() => openCommentModal(post.id, post.eventName)}
+                  >
                     💬 {post.comments}
                   </button>
-                  <button className="icon-btn" title="buy">🛒 Buy</button>
+                  <button 
+                    className="icon-btn" 
+                    title="buy"
+                    onClick={() => handleBuy(post)}
+                  >
+                    🛒 Buy
+                  </button>
                 </div>
               </footer>
             </article>
@@ -273,6 +340,14 @@ const DiscountTicket = () => {
           </div>
         </aside>
       </main>
+
+      <CommentModal
+        isOpen={commentModal.isOpen}
+        onClose={closeCommentModal}
+        onSubmit={handleComment}
+        postId={commentModal.postId}
+        postTitle={commentModal.postTitle}
+      />
     </div>
   );
 };

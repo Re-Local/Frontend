@@ -6,6 +6,7 @@ import CountryBoard from './Community/CountryBoard';
 import TravelPartner from './Community/TravelPartner';
 import ReviewRecommend from './Community/ReviewRecommend';
 import DiscountTicket from './Community/DiscountTicket';
+import PaymentPage from './Community/PaymentPage';
 import Recommended from './Genre/Recommended';
 import AllPosters from './Genre/AllPosters';
 import Main from './MainPage/Main';
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
   {
     path: "/community/discount-ticket",
     element: <DiscountTicket />,
+  },
+  {
+    path: "/community/payment",
+    element: <PaymentPage />,
   },
   {
     path: "/genre/recommended",

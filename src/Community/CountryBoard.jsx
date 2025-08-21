@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Topnav from '../components/Topnav';
+import CommentModal from './CommentModal';
 import './Community.css';
 
 const CountryBoard = () => {
@@ -15,7 +16,9 @@ const CountryBoard = () => {
       date: "2025-01-15",
       likes: 12,
       comments: 8,
-      tags: ["Seoul", "Food", "First-time"]
+      tags: ["Seoul", "Food", "First-time"],
+      liked: false,
+      commentsList: []
     },
     {
       id: 2,
@@ -26,7 +29,9 @@ const CountryBoard = () => {
       date: "2025-01-14",
       likes: 7,
       comments: 5,
-      tags: ["Busan", "Culture", "Music"]
+      tags: ["Busan", "Culture", "Music"],
+      liked: false,
+      commentsList: []
     },
     {
       id: 3,
@@ -37,12 +42,15 @@ const CountryBoard = () => {
       date: "2025-01-13",
       likes: 15,
       comments: 12,
-      tags: ["Busan", "Seafood", "Travel Partner"]
+      tags: ["Busan", "Seafood", "Travel Partner"],
+      liked: false,
+      commentsList: []
     }
   ]);
 
   const [newPost, setNewPost] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("all");
+  const [commentModal, setCommentModal] = useState({ isOpen: false, postId: null, postTitle: "" });
 
   const countries = [
     { code: "all", name: "All Countries", flag: "🌍" },
@@ -68,11 +76,52 @@ const CountryBoard = () => {
       date: new Date().toISOString().split('T')[0],
       likes: 0,
       comments: 0,
-      tags: ["New Post"]
+      tags: ["New Post"],
+      liked: false,
+      commentsList: []
     };
 
     setPosts([newPostData, ...posts]);
     setNewPost("");
+  };
+
+  const handleLike = (postId) => {
+    setPosts(posts.map(post => {
+      if (post.id === postId) {
+        return {
+          ...post,
+          liked: !post.liked,
+          likes: post.liked ? post.likes - 1 : post.likes + 1
+        };
+      }
+      return post;
+    }));
+  };
+
+  const handleComment = (postId, commentText) => {
+    setPosts(posts.map(post => {
+      if (post.id === postId) {
+        return {
+          ...post,
+          comments: post.comments + 1,
+          commentsList: [...post.commentsList, {
+            id: Date.now(),
+            text: commentText,
+            userName: "You",
+            date: new Date().toISOString().split('T')[0]
+          }]
+        };
+      }
+      return post;
+    }));
+  };
+
+  const openCommentModal = (postId, postTitle) => {
+    setCommentModal({ isOpen: true, postId, postTitle });
+  };
+
+  const closeCommentModal = () => {
+    setCommentModal({ isOpen: false, postId: null, postTitle: "" });
   };
 
   const filteredPosts = selectedCountry === "all" 
@@ -157,10 +206,18 @@ const CountryBoard = () => {
                   ))}
                 </div>
                 <div className="review-actions">
-                  <button className="icon-btn" title="like">
+                  <button 
+                    className={`icon-btn ${post.liked ? 'liked' : ''}`} 
+                    title="like"
+                    onClick={() => handleLike(post.id)}
+                  >
                     ♥ {post.likes}
                   </button>
-                  <button className="icon-btn" title="comment">
+                  <button 
+                    className="icon-btn" 
+                    title="comment"
+                    onClick={() => openCommentModal(post.id, post.content.substring(0, 30) + "...")}
+                  >
                     💬 {post.comments}
                   </button>
                   <button className="icon-btn" title="share">🔗 Share</button>
@@ -188,6 +245,14 @@ const CountryBoard = () => {
           </div>
         </aside>
       </main>
+
+      <CommentModal
+        isOpen={commentModal.isOpen}
+        onClose={closeCommentModal}
+        onSubmit={handleComment}
+        postId={commentModal.postId}
+        postTitle={commentModal.postTitle}
+      />
     </div>
   );
 };
