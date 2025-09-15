@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import './Genre.css';
 import Topnav from '../components/Topnav';
 import axios from 'axios';
+import EventPanel from '../MainPage/EventPanel';
 
 // === 샘플 리뷰 (기존과 동일) =========================================
 const SAMPLE_REVIEWS = [
@@ -558,10 +559,8 @@ const Genre = () => {
               onClick={() => navigate('/genre/recommended', { state: { selectedPoster: p } })}
               style={{ cursor: 'pointer' }}
             >
-              <img referrerPolicy="no-referrer" src={p.image} alt={p.title} className="poster-img-mine" onError={(e) => { 
-    e.currentTarget.onerror = null; // 무한 루프 방지
-    e.currentTarget.src = '/images/fallback.jpg'; 
-  }}/>
+              <img referrerPolicy="no-referrer" src={current.posterUrl}
+ alt={current.title} className="poster-img" />
               <div className="poster-title">{p.title}</div>
               <div className="poster-info">
                 {p.category} {p.location && `| ${p.location}`}

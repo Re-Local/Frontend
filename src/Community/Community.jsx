@@ -72,7 +72,7 @@ const Community = () => {
       {/* 공유 업로드 박스 */}
       <section className="upload-box">
         <div className="upload-header">
-          <img src="/profile.png" alt="User" className="profile-pic" />
+          <img src="/images/fallback.jgg" alt="User" className="profile-pic" />
           <textarea
             placeholder="Share your Korean cultural experiences..."
             value={newPost}
