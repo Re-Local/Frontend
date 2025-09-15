@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import './Genre.css';
 import Topnav from '../components/Topnav';
 import axios from 'axios';
+import EventPanel from '../MainPage/EventPanel';
 
 // === 샘플 리뷰 (기존과 동일) =========================================
 const SAMPLE_REVIEWS = [
@@ -644,6 +645,14 @@ const Genre = () => {
               className={`genre-filter-btn ${selectedGenre === null ? 'active' : ''}`}
               onClick={() => handleGenreChange(null)}
             >
+
+              <img referrerPolicy="no-referrer" src={current.posterUrl}
+ alt={current.title} className="poster-img" />
+              <div className="poster-title">{p.title}</div>
+              <div className="poster-info">
+                {p.category} {p.location && `| ${p.location}`}
+              </div>
+
               전체
             </button>
             <button
@@ -712,6 +721,7 @@ const Genre = () => {
                   </div>
                 </div>
               ))}
+
             </div>
           )}
         </>
